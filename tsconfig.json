@@ -1,0 +1,40 @@
+{
+  "compilerOptions": {
+    "module": "es2015",
+    "target": "es2015",
+    "lib": [
+      "dom",
+      "es2016",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react",
+    "baseUrl": ".",
+    "paths": {
+      "@mybricks/rxui": [
+        "../rxui"
+      ],
+      "@mybricks/compiler-js": [
+        "../compiler-js/index"
+      ],
+      "@mybricks/compiler-web": [
+        "./index.ts"
+      ]
+    }
+  },
+  "exclude": [
+    "./node_modules"
+  ]
+}
