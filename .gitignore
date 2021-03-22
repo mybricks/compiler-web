@@ -8,3 +8,4 @@ node_modules/*
 src/**/*.js
 /dist
 _demo/
+_demo_router/
