@@ -1,0 +1,14 @@
+.git/
+.idea/
+.DS_Store
+node_modules/*
+src/*
+_demo/*
+_demo_router/*
+demo/*
+build/*
+tags/*
+.history
+.vscode/
+scripts/
+package-lock.json
