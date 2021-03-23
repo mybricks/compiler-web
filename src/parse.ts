@@ -32,11 +32,7 @@ export function parse(pageContent: { [KEY_STAGEVIEW] }): T_Rtn {
             const {runtime} = com
             const key = runtime.def.namespace + '@' + runtime.def.version
             if (requireComs.indexOf(key) <= 0) {
-              if (!runtime.def.namespace.startsWith('xg-comlib')
-                && !runtime.def.namespace.startsWith('xgraph.coms.module')
-              ) {
-                requireComs.push(key)
-              }
+              requireComs.push(key)
             }
             if (com.frames) {
               com.frames.forEach(fr => parseFrame(fr))
@@ -64,10 +60,19 @@ function getRef(ref: string) {
   return model
 }
 
+const TCache = new WeakMap()
+
 function translate(obj) {
+  if(obj&&TCache.has(obj)){
+    return TCache.get(obj)
+  }
+
+  //setTimeout(()=>console.log(obj))
   if (typeof obj === 'object' && obj) {
+    let rtn
+
     if (obj['_ref_']) {
-      return getRef(obj['_ref_'])
+      rtn =  getRef(obj['_ref_'])
     } else {
       Object.keys(obj).forEach(nm => {
         let tv = obj[nm]
@@ -80,7 +85,12 @@ function translate(obj) {
           obj[nm] = translate(tv)
         }
       })
+      rtn = obj
     }
+
+    TCache.set(obj,rtn)
+
+    return rtn
   }
   return obj
 }

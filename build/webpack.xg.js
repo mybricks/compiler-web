@@ -30,6 +30,7 @@ module.exports = merge(commonCfg, {
     alias: Object.assign({}, {//for dev
       'react': require('path').resolve(__dirname, '../node_modules/react'),
       'react-dom': require('path').resolve(__dirname, '../node_modules/react-dom'),
+      'rxui':require('path').resolve(__dirname, '../../rxui/src/'),
       '@mybricks/rxui':require('path').resolve(__dirname, '../../rxui/src/'),
       '@mybricks/compiler-web':require('path').resolve(__dirname, '../index.ts'),
       '@mybricks/compiler-js': require('path').resolve(__dirname, '../../compiler-js/index.ts'),

@@ -1,0 +1,844 @@
+{
+  "pageAry": [
+    {
+      "id": "home",
+      "content": {
+        "xg.desn.stageview": {
+          "consts": {
+            "froms": [
+              "xg.desn.sdk.ModelState",
+              "xg.desn.sdk.ComStyle",
+              "xg.desn.designer.stageview.topl.PinModel",
+              "xg.desn.sdk.ComRuntimeModel",
+              "xg.desn.designer.stageview.topl.DiagramModel",
+              "xg.desn.designer.stageview.topl.ToplViewModel",
+              "xg.desn.designer.stageview.topl.ToplComModel",
+              "xg.desn.designer.stageview.topl.ToplComModelForked",
+              "xg.desn.designer.stageview.topl.PinModelForked",
+              "xg.desn.designer.stageview.topl.ConModel",
+              "xg.desn.designer.stageview.geo.GeoComModel",
+              "xg.desn.designer.stageview.geo.SlotStyleModel",
+              "xg.desn.designer.stageview.geo.GeoViewModel",
+              "xg.desn.designer.stageview.StageViewModel"
+            ]
+          },
+          "refs": {
+            "ModelState_3C9CFB7C": {
+              "now": 0,
+              "_from_": 0
+            },
+            "ModelState_1622DB02": {
+              "now": 0,
+              "_from_": 0
+            },
+            "ModelState_BEE0339A": {
+              "now": 2,
+              "_from_": 0
+            },
+            "ModelState_59AFB224": {
+              "now": 0,
+              "_from_": 0
+            },
+            "ComStyle_ECD66F77": {
+              "display": "inline-block",
+              "layout": "auto",
+              "zIndex": 1,
+              "width": "fit-content",
+              "_from_": 1
+            },
+            "ModelState_F7C72F03": {
+              "now": 0,
+              "_from_": 0
+            },
+            "ModelState_BC69E731": {
+              "now": 0,
+              "_from_": 0
+            },
+            "PinModel_C3AFBCC0": {
+              "state": {
+                "_ref_": "ModelState_BC69E731"
+              },
+              "id": "u_C090A05A",
+              "zIndex": 0,
+              "_type": 2,
+              "type": "normal",
+              "title": "接收数据",
+              "deletable": false,
+              "conAry": [],
+              "direction": "input",
+              "hostId": "input",
+              "schema": {
+                "request": [
+                  {
+                    "title": "外部传入配置项",
+                    "type": "array"
+                  }
+                ],
+                "response": [
+                  {
+                    "type": "follow"
+                  }
+                ]
+              },
+              "parent": {
+                "_ref_": "ToplComModel_C7612BB0"
+              },
+              "_from_": 2
+            },
+            "ModelState_767D85DC": {
+              "now": 0,
+              "_from_": 0
+            },
+            "PinModel_C6D66041": {
+              "state": {
+                "_ref_": "ModelState_767D85DC"
+              },
+              "id": "u_8080F2A4",
+              "zIndex": 0,
+              "_type": 2,
+              "type": "normal",
+              "title": "加载状态",
+              "deletable": false,
+              "conAry": [],
+              "direction": "input",
+              "hostId": "loading",
+              "schema": {
+                "request": [
+                  {
+                    "type": "follow"
+                  }
+                ],
+                "response": [
+                  {
+                    "type": "follow"
+                  }
+                ]
+              },
+              "parent": {
+                "_ref_": "ToplComModel_C7612BB0"
+              },
+              "_from_": 2
+            },
+            "ModelState_A5DDE417": {
+              "now": 0,
+              "_from_": 0
+            },
+            "PinModel_833CE236": {
+              "state": {
+                "_ref_": "ModelState_A5DDE417"
+              },
+              "id": "u_545E80FE",
+              "zIndex": 0,
+              "_type": 2,
+              "type": "normal",
+              "title": "取消加载状态",
+              "deletable": false,
+              "conAry": [],
+              "direction": "input",
+              "hostId": "unloading",
+              "schema": {
+                "request": [
+                  {
+                    "type": "follow"
+                  }
+                ],
+                "response": [
+                  {
+                    "type": "follow"
+                  }
+                ]
+              },
+              "parent": {
+                "_ref_": "ToplComModel_C7612BB0"
+              },
+              "_from_": 2
+            },
+            "ModelState_715A0B8B": {
+              "now": 0,
+              "_from_": 0
+            },
+            "PinModel_2A5F1C5E": {
+              "state": {
+                "_ref_": "ModelState_715A0B8B"
+              },
+              "id": "u_B168FD6D",
+              "zIndex": 0,
+              "_type": 2,
+              "type": "normal",
+              "title": "禁用",
+              "deletable": false,
+              "conAry": [],
+              "direction": "input",
+              "hostId": "disable",
+              "schema": {
+                "request": [
+                  {
+                    "title": "布尔值",
+                    "type": "boolean"
+                  }
+                ],
+                "response": [
+                  {
+                    "type": "follow"
+                  }
+                ]
+              },
+              "parent": {
+                "_ref_": "ToplComModel_C7612BB0"
+              },
+              "_from_": 2
+            },
+            "ModelState_A773774B": {
+              "now": 0,
+              "_from_": 0
+            },
+            "PinModel_867894D3": {
+              "state": {
+                "_ref_": "ModelState_A773774B"
+              },
+              "id": "u_28176536",
+              "zIndex": 0,
+              "_type": 2,
+              "type": "normal",
+              "title": "取消禁用状态",
+              "deletable": false,
+              "conAry": [],
+              "direction": "input",
+              "hostId": "able",
+              "schema": {
+                "request": [
+                  {
+                    "title": "布尔值",
+                    "type": "boolean"
+                  }
+                ],
+                "response": [
+                  {
+                    "type": "follow"
+                  }
+                ]
+              },
+              "parent": {
+                "_ref_": "ToplComModel_C7612BB0"
+              },
+              "_from_": 2
+            },
+            "ModelState_90814D2B": {
+              "now": 0,
+              "_from_": 0
+            },
+            "PinModel_4A3512A9": {
+              "state": {
+                "_ref_": "ModelState_90814D2B"
+              },
+              "id": "u_3347CEDB",
+              "zIndex": 0,
+              "_type": 2,
+              "type": "ext",
+              "title": "显示",
+              "deletable": false,
+              "conAry": [],
+              "direction": "input",
+              "hostId": "show",
+              "schema": {
+                "request": [
+                  {
+                    "type": "any"
+                  }
+                ],
+                "response": [
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "parent": {
+                "_ref_": "ToplComModel_C7612BB0"
+              },
+              "_from_": 2
+            },
+            "ModelState_928DDA1B": {
+              "now": 0,
+              "_from_": 0
+            },
+            "PinModel_33DB25F9": {
+              "state": {
+                "_ref_": "ModelState_928DDA1B"
+              },
+              "id": "u_F33181E3",
+              "zIndex": 0,
+              "_type": 2,
+              "type": "ext",
+              "title": "隐藏",
+              "deletable": false,
+              "conAry": [],
+              "direction": "input",
+              "hostId": "hide",
+              "schema": {
+                "request": [
+                  {
+                    "type": "any"
+                  }
+                ],
+                "response": [
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "parent": {
+                "_ref_": "ToplComModel_C7612BB0"
+              },
+              "_from_": 2
+            },
+            "ModelState_9D10BCD0": {
+              "now": 0,
+              "_from_": 0
+            },
+            "ModelState_80BD1356": {
+              "now": 0,
+              "_from_": 0
+            },
+            "ModelState_E6821DF9": {
+              "now": 0,
+              "_from_": 0
+            },
+            "ModelState_CF6824BC": {
+              "now": 0,
+              "_from_": 0
+            },
+            "ModelState_4A7D4BF7": {
+              "now": 0,
+              "_from_": 0
+            },
+            "ModelState_0057863C": {
+              "now": 0,
+              "_from_": 0
+            },
+            "ModelState_EEA3C0A0": {
+              "now": 0,
+              "_from_": 0
+            },
+            "PinModel_97563F02": {
+              "state": {
+                "_ref_": "ModelState_EEA3C0A0"
+              },
+              "id": "u_D44CDE5C",
+              "zIndex": 0,
+              "_type": 2,
+              "type": "normal",
+              "title": "提示消息",
+              "deletable": false,
+              "conAry": [
+                {
+                  "_ref_": "ConModel_655B8E53"
+                }
+              ],
+              "direction": "input",
+              "hostId": "toast",
+              "schema": {
+                "request": [
+                  {
+                    "title": "提示消息",
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "response": [
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "parent": {
+                "_ref_": "ToplComModel_D5992BFB"
+              },
+              "_from_": 2
+            },
+            "ModelState_9C3078C5": {
+              "now": 0,
+              "_from_": 0
+            },
+            "ComStyle_F5B33816": {
+              "display": "block",
+              "layout": "auto",
+              "_from_": 1
+            },
+            "ComRuntimeModel_4C77CA09": {
+              "state": {
+                "_ref_": "ModelState_9C3078C5"
+              },
+              "id": "u_8C8D6AD0",
+              "labelType": "none",
+              "model": {
+                "data": {
+                  "type": "info",
+                  "interval": 1
+                },
+                "inputAry": [],
+                "outputAry": [],
+                "style": {
+                  "_ref_": "ComStyle_F5B33816"
+                }
+              },
+              "initState": {
+                "editorInitInvoked": true
+              },
+              "def": {
+                "namespace": "power.normal-logic.toast",
+                "version": "1.0.17",
+                "rtType": "js"
+              },
+              "topl": {
+                "_ref_": "ToplComModel_D5992BFB"
+              },
+              "title": "消息",
+              "_from_": 3
+            },
+            "ModelState_D5D05FF1": {
+              "now": -1,
+              "_from_": 0
+            },
+            "ModelState_8B3138F2": {
+              "now": 0,
+              "_from_": 0
+            },
+            "DiagramModel_EC56B023": {
+              "state": {
+                "_ref_": "ModelState_8B3138F2"
+              },
+              "id": "u_4F52550D",
+              "comAry": [],
+              "conAry": [],
+              "style": {
+                "left": null,
+                "top": null,
+                "height": 200
+              },
+              "parent": {
+                "_ref_": "ToplViewModel_3A940BB2"
+              },
+              "showIO": true,
+              "_from_": 4
+            },
+            "ToplViewModel_3A940BB2": {
+              "state": {
+                "_ref_": "ModelState_D5D05FF1"
+              },
+              "id": "u_6D5DB7C5",
+              "zIndex": 0,
+              "_type": 0,
+              "style": {
+                "left": 2972,
+                "top": 2825
+              },
+              "editable": true,
+              "isFrame": false,
+              "inputPins": [],
+              "outputPins": [],
+              "comAry": [
+                {
+                  "_ref_": "ToplComModel_C7612BB0"
+                },
+                {
+                  "_ref_": "ToplComModel_D5992BFB"
+                }
+              ],
+              "conAry": [],
+              "diagramAry": [
+                {
+                  "_ref_": "DiagramModel_EC56B023"
+                },
+                {
+                  "_ref_": "DiagramModel_DCBA769D"
+                }
+              ],
+              "commentAry": [],
+              "focusModelAry": [
+                {
+                  "_ref_": "ToplComModel_D5992BFB"
+                }
+              ],
+              "zIndexCur": {
+                "con": 0,
+                "com": 100
+              },
+              "name": "topl",
+              "_from_": 5,
+              "focusedDiagram": {
+                "_ref_": "DiagramModel_EC56B023"
+              }
+            },
+            "ToplComModel_D5992BFB": {
+              "state": {
+                "_ref_": "ModelState_0057863C"
+              },
+              "_type": 1,
+              "init": true,
+              "style": {
+                "left": 270,
+                "top": 20
+              },
+              "foldedStyle": {},
+              "inputPins": [
+                {
+                  "_ref_": "PinModel_97563F02"
+                }
+              ],
+              "inputPinsInModel": [],
+              "inputPinExts": [],
+              "outputPins": [],
+              "outputPinsInModel": [],
+              "outputPinExts": [],
+              "runtime": {
+                "_ref_": "ComRuntimeModel_4C77CA09"
+              },
+              "parent": {
+                "_ref_": "ToplViewModel_3A940BB2"
+              },
+              "_from_": 6
+            },
+            "DiagramModel_DCBA769D": {
+              "state": {
+                "_ref_": "ModelState_4A7D4BF7"
+              },
+              "id": "u_DF494BC0",
+              "comAry": [
+                {
+                  "_ref_": "ToplComModelForked_6018950F"
+                },
+                {
+                  "_ref_": "ToplComModel_D5992BFB"
+                }
+              ],
+              "conAry": [
+                {
+                  "_ref_": "ConModel_655B8E53"
+                }
+              ],
+              "style": {
+                "left": null,
+                "top": null,
+                "height": 200
+              },
+              "parent": {
+                "_ref_": "ToplViewModel_3A940BB2"
+              },
+              "startFrom": {
+                "_ref_": "ToplComModelForked_6018950F"
+              },
+              "_from_": 4
+            },
+            "ToplComModelForked_6018950F": {
+              "state": {
+                "_ref_": "ModelState_CF6824BC"
+              },
+              "_type": 1,
+              "init": true,
+              "style": {
+                "left": 50,
+                "top": 26
+              },
+              "foldedStyle": {},
+              "inputPins": [],
+              "inputPinsInModel": [],
+              "inputPinExts": [],
+              "outputPins": [
+                {
+                  "_ref_": "PinModelForked_2BC5B98C"
+                }
+              ],
+              "outputPinsInModel": [],
+              "outputPinExts": [],
+              "parent": {
+                "_ref_": "DiagramModel_DCBA769D"
+              },
+              "forkedFrom": {
+                "_ref_": "ToplComModel_C7612BB0"
+              },
+              "io": "all-outputs",
+              "_startInDiagram": true,
+              "_key": "u_738A8A82",
+              "_from_": 7
+            },
+            "PinModelForked_2BC5B98C": {
+              "state": {
+                "_ref_": "ModelState_E6821DF9"
+              },
+              "id": "u_3B3DEE66",
+              "zIndex": 0,
+              "_type": 2,
+              "deletable": false,
+              "conAry": [
+                {
+                  "_ref_": "ConModel_655B8E53"
+                }
+              ],
+              "parent": {
+                "_ref_": "ToplComModelForked_6018950F"
+              },
+              "forkedFrom": {
+                "_ref_": "PinModel_8D68EB3C"
+              },
+              "_from_": 8,
+              "title": "点击按钮"
+            },
+            "ConModel_655B8E53": {
+              "state": {
+                "_ref_": "ModelState_80BD1356"
+              },
+              "id": "u_D1EE490E",
+              "zIndex": 0,
+              "_type": 4,
+              "_ing": false,
+              "startPin": {
+                "_ref_": "PinModelForked_2BC5B98C"
+              },
+              "_startPo": {
+                "j": 57.2,
+                "x": 54,
+                "y": 34
+              },
+              "finishPin": {
+                "_ref_": "PinModel_97563F02"
+              },
+              "length": 210.5,
+              "title": "从 点击按钮 到 提示消息 的连接",
+              "parent": {
+                "_ref_": "DiagramModel_DCBA769D"
+              },
+              "_from_": 9,
+              "startPo": {
+                "j": 57.2,
+                "x": 54,
+                "y": 34
+              },
+              "finishPo": {
+                "temp": true,
+                "x": 264,
+                "y": 33.5,
+                "j": 57.2
+              }
+            },
+            "PinModel_8D68EB3C": {
+              "state": {
+                "_ref_": "ModelState_9D10BCD0"
+              },
+              "id": "u_3B3DEE66",
+              "zIndex": 0,
+              "_type": 2,
+              "type": "normal",
+              "title": "点击按钮",
+              "deletable": false,
+              "conAry": [
+                {
+                  "_ref_": "ConModel_655B8E53"
+                }
+              ],
+              "direction": "output",
+              "hostId": "click",
+              "schema": {
+                "request": [
+                  {
+                    "type": "string"
+                  }
+                ],
+                "response": [
+                  {
+                    "type": "follow"
+                  }
+                ]
+              },
+              "parent": {
+                "_ref_": "ToplComModel_C7612BB0"
+              },
+              "_from_": 2
+            },
+            "ToplComModel_C7612BB0": {
+              "state": {
+                "_ref_": "ModelState_F7C72F03"
+              },
+              "_type": 1,
+              "init": false,
+              "style": {
+                "left": 160,
+                "top": 200
+              },
+              "foldedStyle": {},
+              "inputPins": [
+                {
+                  "_ref_": "PinModel_C3AFBCC0"
+                },
+                {
+                  "_ref_": "PinModel_C6D66041"
+                },
+                {
+                  "_ref_": "PinModel_833CE236"
+                },
+                {
+                  "_ref_": "PinModel_2A5F1C5E"
+                },
+                {
+                  "_ref_": "PinModel_867894D3"
+                }
+              ],
+              "inputPinsInModel": [],
+              "inputPinExts": [
+                {
+                  "_ref_": "PinModel_4A3512A9"
+                },
+                {
+                  "_ref_": "PinModel_33DB25F9"
+                }
+              ],
+              "outputPins": [
+                {
+                  "_ref_": "PinModel_8D68EB3C"
+                }
+              ],
+              "outputPinsInModel": [],
+              "outputPinExts": [],
+              "runtime": {
+                "_ref_": "ComRuntimeModel_0465F807"
+              },
+              "parent": {
+                "_ref_": "ToplViewModel_3A940BB2"
+              },
+              "_from_": 6
+            },
+            "ComRuntimeModel_0465F807": {
+              "state": {
+                "_ref_": "ModelState_59AFB224"
+              },
+              "id": "u_599E7690",
+              "labelType": "none",
+              "model": {
+                "data": {
+                  "tools": [],
+                  "btn": {
+                    "id": "u_7yprz0",
+                    "title": "按钮",
+                    "size": "middle",
+                    "type": "default",
+                    "outVal": "hello",
+                    "dataType": "string",
+                    "shape": "",
+                    "useIcon": false,
+                    "icon": "",
+                    "showText": true,
+                    "block": false,
+                    "disable": false,
+                    "loading": false,
+                    "inputContent": "text",
+                    "hideBorder": false,
+                    "margin": [
+                      0,
+                      0
+                    ]
+                  },
+                  "layout": "flex-start"
+                },
+                "inputAry": [],
+                "outputAry": [],
+                "style": {
+                  "_ref_": "ComStyle_ECD66F77"
+                }
+              },
+              "initState": {
+                "editorInitInvoked": true
+              },
+              "def": {
+                "namespace": "power.normal-ui-pc-v2.button",
+                "version": "1.0.1"
+              },
+              "geo": {
+                "_ref_": "GeoComModel_EE083F32"
+              },
+              "title": "按钮",
+              "topl": {
+                "_ref_": "ToplComModel_C7612BB0"
+              },
+              "_from_": 3
+            },
+            "GeoComModel_EE083F32": {
+              "state": {
+                "_ref_": "ModelState_BEE0339A"
+              },
+              "init": true,
+              "runtime": {
+                "_ref_": "ComRuntimeModel_0465F807"
+              },
+              "parent": {
+                "_ref_": "GeoViewModel_667A08F6"
+              },
+              "_from_": 10
+            },
+            "SlotStyleModel_1E9AEE86": {
+              "zoom": 1,
+              "layout": "flex-column",
+              "justifyContent": "flex-start",
+              "alignItems": "flex-start",
+              "_from_": 11,
+              "height": 799,
+              "width": 1099,
+              "left": 1964,
+              "top": 1947
+            },
+            "GeoViewModel_667A08F6": {
+              "state": {
+                "_ref_": "ModelState_1622DB02"
+              },
+              "id": "u_EA655CE6",
+              "comAry": [
+                {
+                  "_ref_": "GeoComModel_EE083F32"
+                }
+              ],
+              "style": {
+                "_ref_": "SlotStyleModel_1E9AEE86"
+              },
+              "name": "geo",
+              "_from_": 12
+            },
+            "StageViewModel_87DA723E": {
+              "state": {
+                "_ref_": "ModelState_3C9CFB7C"
+              },
+              "id": "u_4EC0BF1F",
+              "designerVersion": 0.2,
+              "moduleNav": [
+                {
+                  "instId": "_main_",
+                  "title": "主模块",
+                  "slot": {
+                    "_ref_": "GeoViewModel_667A08F6"
+                  },
+                  "frame": {
+                    "_ref_": "ToplViewModel_3A940BB2"
+                  }
+                }
+              ],
+              "envVars": {},
+              "mainModule": {
+                "instId": "_main_",
+                "title": "主模块",
+                "slot": {
+                  "_ref_": "GeoViewModel_667A08F6"
+                },
+                "frame": {
+                  "_ref_": "ToplViewModel_3A940BB2"
+                }
+              },
+              "_from_": 13
+            }
+          },
+          "def": {
+            "_ref_": "StageViewModel_87DA723E"
+          }
+        }
+      }
+    }
+  ]
+}

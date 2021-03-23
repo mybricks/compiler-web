@@ -7,5 +7,4 @@ node_modules/*
 **/*.js.map
 src/**/*.js
 /dist
-_demo/
 _demo_router/
