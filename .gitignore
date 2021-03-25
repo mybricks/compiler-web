@@ -5,6 +5,7 @@ node_modules/*
 .tmp
 .history
 **/*.js.map
-src/**/*.js
-/dist
+src/
 _demo_router/
+_demo/
+build/

@@ -2,27 +2,9 @@ import {compile, createIO, I_Frame, I_Node, I_Pin, I_Runner} from "@mybricks/com
 import {useMemo} from "react";
 import {igonreObservableBefore, observable, clone} from "@mybricks/rxui";
 
-//import xgComLib from '../../comlib/src/index'
-
 import css from './skin.less'
 
 const RT_MAPS = {}
-// const IO = (function () {
-//   const cache = {}
-//
-//   return {
-//     get(node: I_Node) {
-//       return cache[node.runtime.id]
-//     }, set(node: I_Node) {
-//       if (!cache[node.runtime.id]) {
-//         cache[node.runtime.id] = createIO(node)
-//       }else{
-//         debugger
-//       }
-//       return cache[node.runtime.id]
-//     }
-//   }
-// })()
 
 type T_LogItem = { catelog: string, content: string, focus: Function, blur: Function }
 
@@ -34,7 +16,6 @@ export function RenderReact({
   comDefs: { [nsAndVersion: string]: Function },
   inputParams?,
   output?,
-  // extComDef,
   runtimeCfg: {
     getUserToken: () => string
     getEnvType: () => string
@@ -49,17 +30,9 @@ export function RenderReact({
 
   const nComDefs = Object.assign({}, comDefs)
 
-  // const xgComs = xgComLib.comAray
-  // if (xgComs) {
-  //   xgComs.forEach(def => {
-  //     nComDefs[def.namespace + '@' + def.version] = def.runtime
-  //   })
-  // }
-
   const {frame, slot} = useMemo(() => {
     const {frame, slot} = observable(mainModule)
     const runner: I_Runner = compile(frame, {
-      // extComDef,
       // envVars,
       node(node: I_Node) {
         return {
@@ -75,7 +48,6 @@ export function RenderReact({
             const rtType = rtDef.rtType
 
             if (rtType && rtType.match(/js/gi)) {//逻辑组件
-
               const rtCfg = Object.assign({
                 get curModule() {
                   const module = node.parent.parent

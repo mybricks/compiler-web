@@ -1,7 +1,7 @@
 ﻿import {E_ItemType, I_Frame, isTypeof} from "@mybricks/compiler-js";
 import {KEY_STAGEVIEW} from "./constants";
 
-let allRefs, refLoaded = {};
+let allRefs, refLoaded, translatedMap
 
 type T_Rtn = {
   requireComs: string[],
@@ -12,6 +12,7 @@ type T_Rtn = {
 }
 
 export function parse(pageContent: { [KEY_STAGEVIEW] }): T_Rtn {
+  translatedMap = new WeakMap()
   refLoaded = {}
 
   const stageView = pageContent[KEY_STAGEVIEW]
@@ -46,7 +47,13 @@ export function parse(pageContent: { [KEY_STAGEVIEW] }): T_Rtn {
     parseFrame(mainModule.frame)
   }
 
-  return {mainModule, requireComs}
+  const rtn = {mainModule, requireComs}
+
+  allRefs = void 0
+  refLoaded = void 0
+  translatedMap = void 0
+
+  return rtn
 }
 
 function getRef(ref: string) {
@@ -60,20 +67,21 @@ function getRef(ref: string) {
   return model
 }
 
-const TCache = new WeakMap()
 
 function translate(obj) {
-  if(obj&&TCache.has(obj)){
-    return TCache.get(obj)
+  if (obj && translatedMap.has(obj)) {
+    return translatedMap.get(obj)
   }
 
-  //setTimeout(()=>console.log(obj))
   if (typeof obj === 'object' && obj) {
     let rtn
 
     if (obj['_ref_']) {
-      rtn =  getRef(obj['_ref_'])
+      rtn = getRef(obj['_ref_'])
+      translatedMap.set(obj, rtn)
     } else {
+      translatedMap.set(obj, obj)
+
       Object.keys(obj).forEach(nm => {
         let tv = obj[nm]
 
@@ -87,8 +95,6 @@ function translate(obj) {
       })
       rtn = obj
     }
-
-    TCache.set(obj,rtn)
 
     return rtn
   }
