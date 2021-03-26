@@ -69,7 +69,7 @@ function PageCom(mainModule, comDefs) {
           window.location.hash = id
         },
         getUserToken() {
-          return '3b73a2405d2aafb9c0d3ba47ed8d8af7'
+          return '540a1e63a71e7fa3a494748356f790d1'
         },
         getEnvType() {
           return 'fat'

@@ -50,6 +50,8 @@ module.exports = merge(commonCfg, {
     contentBase: path.join(__dirname, '../_demo'),
     disableHostCheck: true,
     //progress: true,
-    inline: true
+    inline: true,
+    useLocalIp: true,
+    host: '0.0.0.0'
   }
 })

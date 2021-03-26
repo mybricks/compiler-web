@@ -39,7 +39,7 @@ export function RenderReact({
           render(scopePath: string, frameLable: string, frames: {}, curScope) {
             const io = createIO(node, {
               output() {
-                igonreObservableBefore()//TODO 待测试
+                //igonreObservableBefore()//TODO 待测试
               }
             })
             RT_MAPS[node.runtime.id] = {scopePath, frameLable, frames, io}
