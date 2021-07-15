@@ -200,10 +200,10 @@ function RenderCom({node, comDefs, runtimeCfg}: { node: {} & I_Node, comDefs, ru
     <div id={node.runtime.id} style={{
       width: style.width || '100%',
       display: style.display,
-      paddingTop: style.marginTop,
-      paddingBottom: style.marginBottom,
-      paddingLeft: style.marginLeft,
-      paddingRight: style.marginRight,
+      paddingTop: style.marginTop + 'px',
+      paddingBottom: style.marginBottom + 'px',
+      paddingLeft: style.marginLeft + 'px',
+      paddingRight: style.marginRight + 'px',
     }} className={`${node.runtime._focus ? css.debugFocus : ''}`}>
       {
         comRuntime({
