@@ -43,9 +43,8 @@ module.exports = {
   },
   externals: [{
     'rxui': 'rxui',
-    'React': {commonjs: "React", commonjs2: "React", amd: "React", root: "React"},
-    'react': {commonjs: "React", commonjs2: "React", amd: "React", root: "React"},
-    'react-dom': {commonjs: "ReactDOM", commonjs2: "ReactDOM", amd: "ReactDOM", root: "ReactDOM"},
+    'react': 'react',
+    'react-dom': 'react-dom',
     'antd': 'antd',
     'axios': 'axios',
     'lodash': {commonjs: "lodash", commonjs2: "lodash", amd: "lodash", root: "_"},
