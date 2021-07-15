@@ -4,7 +4,7 @@ module.exports = {
   entry:'./index.ts',
   //devtool: 'cheap-module-source-map',
   //devtool: 'cheap-module-eval-source-map',
-  devtool: 'cheap-module-eval-source-map',
+  //devtool: 'cheap-module-eval-source-map',
   module: {
     rules: [
       {
@@ -45,8 +45,6 @@ module.exports = {
     'rxui': 'rxui',
     'react': 'react',
     'react-dom': 'react-dom',
-    'antd': 'antd',
-    'axios': 'axios',
     'lodash': {commonjs: "lodash", commonjs2: "lodash", amd: "lodash", root: "_"},
     'moment': 'moment',
     '@ant-design/icons': '@ant-design',

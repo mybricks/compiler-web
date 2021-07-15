@@ -10,12 +10,17 @@ type T_LogItem = { catelog: string, content: string, focus: Function, blur: Func
 
 export function RenderReact({
                               mainModule, comDefs, inputParams, output,
+                              env,
                               runtimeCfg, logs
                             }: {
   mainModule: { frame: I_Frame, slot: {} },
   comDefs: { [nsAndVersion: string]: Function },
   inputParams?,
   output?,
+  env: {
+    createPortal?: (children) => any,
+    fetch?: (url: string) => Promise<any>
+  },
   runtimeCfg: {
     getUserToken: () => string
     getEnvType: () => string
@@ -27,7 +32,6 @@ export function RenderReact({
     error: (item: T_LogItem) => void
   }
 }) {
-
   const nComDefs = Object.assign({}, comDefs)
 
   const {frame, slot} = useMemo(() => {
@@ -75,7 +79,7 @@ export function RenderReact({
                   data: clone(node.runtime.model.data),
                   inputs: io.inputs,
                   outputs: io.outputs,
-                  env: {runtime: rtCfg}
+                  env: Object.assign({runtime: rtCfg}, env || {})
                 })
               } else {
                 throw new Error(`未找到组件(${ns})`)
@@ -128,7 +132,7 @@ export function RenderReact({
       }
     })
 
-    runner.run()(inputParams?{params: inputParams}:void 0)
+    runner.run()(inputParams ? {params: inputParams} : void 0)
 
     return {frame, slot}
   }, [])
@@ -136,12 +140,12 @@ export function RenderReact({
   const jsx = []
 
   slot.comAry.forEach((node: I_Node) => {
-    jsx.push(<RenderCom key={node.runtime.id} node={node} comDefs={nComDefs} runtimeCfg={runtimeCfg}/>)
+    jsx.push(<RenderCom key={node.runtime.id} node={node} comDefs={nComDefs} env={env} runtimeCfg={runtimeCfg}/>)
   })
   return jsx
 }
 
-function RenderCom({node, comDefs, runtimeCfg}: { node: {} & I_Node, comDefs, runtimeCfg }) {
+function RenderCom({node, comDefs, env, runtimeCfg}: { node: {} & I_Node, comDefs, env, runtimeCfg }) {
   const {slots: comSlots, runtime} = node
 
   const rtType = runtime.def.rtType
@@ -182,7 +186,7 @@ function RenderCom({node, comDefs, runtimeCfg}: { node: {} & I_Node, comDefs, ru
               {
                 comAry.map(com => {
                     return (
-                      <RenderCom key={com.runtime.id} node={com} comDefs={comDefs} runtimeCfg={runtimeCfg}/>
+                      <RenderCom key={com.runtime.id} node={com} comDefs={comDefs} env={env} runtimeCfg={runtimeCfg}/>
                     )
                   }
                 )
@@ -196,6 +200,10 @@ function RenderCom({node, comDefs, runtimeCfg}: { node: {} & I_Node, comDefs, ru
 
   const style = nodeModel.style
 
+  const nenv = Object.assign({
+    runtime: runtimeCfg || {}
+  }, env || {})
+
   return (
     <div id={node.runtime.id} style={{
       width: style.width || '100%',
@@ -208,7 +216,7 @@ function RenderCom({node, comDefs, runtimeCfg}: { node: {} & I_Node, comDefs, ru
       {
         comRuntime({
           slots: slots,
-          env: {runtime: runtimeCfg},
+          env: nenv,
           data: nodeModel.data,
           style,
           inputs: io.inputs,
