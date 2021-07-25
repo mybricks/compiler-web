@@ -146,7 +146,7 @@ export function RenderReact({
 }
 
 function RenderCom({node, comDefs, env, runtimeCfg}: { node: {} & I_Node, comDefs, env, runtimeCfg }) {
-  const {slots: comSlots, runtime} = node
+  const {slots: comSlots, runtime, parent} = node
 
   const rtType = runtime.def.rtType
 
@@ -200,6 +200,15 @@ function RenderCom({node, comDefs, env, runtimeCfg}: { node: {} & I_Node, comDef
 
   const style = nodeModel.style
 
+  let absoluteStyle = {}
+
+  if (parent.style.layout === 'absolute') {
+    absoluteStyle.position = 'absolute'
+    absoluteStyle.width = 'fit-content'
+    absoluteStyle.top = style.top + 'px'
+    absoluteStyle.left = style.left + 'px'
+  }
+
   const nenv = Object.assign({
     runtime: runtimeCfg || {}
   }, env || {})
@@ -212,6 +221,7 @@ function RenderCom({node, comDefs, env, runtimeCfg}: { node: {} & I_Node, comDef
       paddingBottom: style.marginBottom + 'px',
       paddingLeft: style.marginLeft + 'px',
       paddingRight: style.marginRight + 'px',
+      ...absoluteStyle
     }} className={`${node.runtime._focus ? css.debugFocus : ''}`}>
       {
         comRuntime({
