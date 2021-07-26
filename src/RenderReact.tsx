@@ -11,7 +11,7 @@ type T_LogItem = { catelog: string, content: string, focus: Function, blur: Func
 export function RenderReact({
                               mainModule, comDefs, inputParams, output,
                               env,
-                              runtimeCfg, logs
+                              runtimeCfg, logs, logger
                             }: {
   mainModule: { frame: I_Frame, slot: {} },
   comDefs: { [nsAndVersion: string]: Function },
@@ -30,7 +30,8 @@ export function RenderReact({
   logs: {
     info: (item: T_LogItem) => void,
     error: (item: T_LogItem) => void
-  }
+  },
+  logger: () => {}
 }) {
   const nComDefs = Object.assign({}, comDefs)
 
@@ -79,7 +80,8 @@ export function RenderReact({
                   data: clone(node.runtime.model.data),
                   inputs: io.inputs,
                   outputs: io.outputs,
-                  env: Object.assign({runtime: rtCfg}, env || {})
+                  env: Object.assign({runtime: rtCfg}, env || {}),
+                  logger: logger(node.runtime)
                 })
               } else {
                 throw new Error(`未找到组件(${ns})`)

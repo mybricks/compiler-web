@@ -1,6 +1,6 @@
 {
   "name": "@mybricks/compiler-web",
-  "version": "0.0.30",
+  "version": "0.0.31",
   "main": "main.js",
   "scripts": {
     "test": "jest",
@@ -42,8 +42,5 @@
     "webpack-cli": "^3.3.11",
     "webpack-dev-server": "^3.10.3",
     "webpack-merge": "^4.2.2"
-  },
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org"
   }
 }
