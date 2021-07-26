@@ -142,12 +142,12 @@ export function RenderReact({
   const jsx = []
 
   slot.comAry.forEach((node: I_Node) => {
-    jsx.push(<RenderCom key={node.runtime.id} node={node} comDefs={nComDefs} env={env} runtimeCfg={runtimeCfg}/>)
+    jsx.push(<RenderCom key={node.runtime.id} node={node} comDefs={nComDefs} env={env} runtimeCfg={runtimeCfg} logger={logger}/>)
   })
   return jsx
 }
 
-function RenderCom({node, comDefs, env, runtimeCfg}: { node: {} & I_Node, comDefs, env, runtimeCfg }) {
+function RenderCom({node, comDefs, env, runtimeCfg, logger}: { node: {} & I_Node, comDefs, env, runtimeCfg, logger }) {
   const {slots: comSlots, runtime, parent} = node
 
   const rtType = runtime.def.rtType
@@ -188,7 +188,7 @@ function RenderCom({node, comDefs, env, runtimeCfg}: { node: {} & I_Node, comDef
               {
                 comAry.map(com => {
                     return (
-                      <RenderCom key={com.runtime.id} node={com} comDefs={comDefs} env={env} runtimeCfg={runtimeCfg}/>
+                      <RenderCom key={com.runtime.id} node={com} comDefs={comDefs} env={env} runtimeCfg={runtimeCfg} logger={logger}/>
                     )
                   }
                 )
@@ -233,6 +233,7 @@ function RenderCom({node, comDefs, env, runtimeCfg}: { node: {} & I_Node, comDef
           style,
           inputs: io.inputs,
           outputs: io.outputs,
+          logger: logger(node.runtime)
         })
       }
     </div>)
