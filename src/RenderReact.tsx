@@ -11,7 +11,7 @@ type T_LogItem = { catelog: string, content: string, focus: Function, blur: Func
 export function RenderReact({
                               mainModule, comDefs, inputParams, output,
                               env,
-                              runtimeCfg, logs, logger
+                              runtimeCfg, logs, logger = () => {}
                             }: {
   mainModule: { frame: I_Frame, slot: {} },
   comDefs: { [nsAndVersion: string]: Function },
@@ -31,7 +31,7 @@ export function RenderReact({
     info: (item: T_LogItem) => void,
     error: (item: T_LogItem) => void
   },
-  logger: () => {}
+  logger: () => void
 }) {
   const nComDefs = Object.assign({}, comDefs)
 
