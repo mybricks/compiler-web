@@ -206,7 +206,6 @@ function RenderCom({node, comDefs, env, runtimeCfg, logger}: { node: {} & I_Node
 
   if (parent.style.layout === 'absolute') {
     absoluteStyle.position = 'absolute'
-    absoluteStyle.width = 'fit-content'
     absoluteStyle.top = style.top + 'px'
     absoluteStyle.left = style.left + 'px'
   }
