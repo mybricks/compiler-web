@@ -184,7 +184,7 @@ function RenderCom({node, comDefs, env, runtimeCfg, logger}: { node: {} & I_Node
           }
           const comAry = slot.comAry
           return (
-            <section className={calSlotStyle(slot)}>
+            <section className={calSlotStyle(slot)} style={{overflow: 'hidden'}}>
               {
                 comAry.map(com => {
                     return (
