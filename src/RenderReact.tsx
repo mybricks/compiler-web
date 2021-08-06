@@ -229,6 +229,7 @@ function RenderCom({node, comDefs, env, runtimeCfg, logger}: { node: {} & I_Node
           slots: slots,
           env: nenv,
           data: nodeModel.data,
+          title:node.runtime.title,
           style,
           inputs: io.inputs,
           outputs: io.outputs,
