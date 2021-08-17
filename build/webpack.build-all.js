@@ -42,7 +42,7 @@ module.exports = {
     ]
   },
   externals: [{
-    '@mybricks/rxui': 'rxui',
+    '@mybricks/rxui': '@mybricks/rxui',
     'react': 'react',
     'react-dom': 'react-dom',
     'lodash': {commonjs: "lodash", commonjs2: "lodash", amd: "lodash", root: "_"},
