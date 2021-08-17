@@ -222,6 +222,21 @@ function RenderCom({node, comDefs, env, runtimeCfg, logger, slotIo}: { node: {} 
     absoluteStyle.left = style.left + 'px'
   }
 
+  // TODO 临时解决设置上下负边距的问题
+  const otherStyle: any = {}
+
+  if (style.marginTop < 0) {
+    otherStyle.marginTop = style.marginTop + 'px'
+  } else {
+    otherStyle.paddingTop = style.marginTop + 'px'
+  }
+
+  if (style.marginBottom < 0) {
+    otherStyle.marginBottom = style.marginBottom + 'px'
+  } else {
+    otherStyle.paddingBottom = style.marginBottom + 'px'
+  }
+
   const nenv = Object.assign({
     runtime: runtimeCfg || {}
   }, env || {})
@@ -230,10 +245,12 @@ function RenderCom({node, comDefs, env, runtimeCfg, logger, slotIo}: { node: {} 
     <div id={node.runtime.id} style={{
       width: style.width || '100%',
       display: style.display,
-      paddingTop: style.marginTop + 'px',
-      paddingBottom: style.marginBottom + 'px',
+      // paddingTop: style.marginTop + 'px',
+      // paddingBottom: style.marginBottom + 'px',
       paddingLeft: style.marginLeft + 'px',
       paddingRight: style.marginRight + 'px',
+      position: style.position || 'relative',
+      ...otherStyle,
       ...absoluteStyle
     }} className={`${node.runtime._focus ? css.debugFocus : ''}`}>
       {
