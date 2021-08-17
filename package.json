@@ -13,8 +13,8 @@
   "author": "CheMingjun",
   "license": "",
   "dependencies": {
-    "@mybricks/compiler-js": "0.0.1",
-    "@mybricks/rxui": "^1.0.16"
+    "@mybricks/compiler-js": "0.0.3",
+    "@mybricks/rxui": "^1.0.22"
   },
   "devDependencies": {
     "@babel/core": "^7.8.7",

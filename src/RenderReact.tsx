@@ -147,7 +147,7 @@ export function RenderReact({
   return jsx
 }
 
-function RenderCom({node, comDefs, env, runtimeCfg, logger}: { node: {} & I_Node, comDefs, env, runtimeCfg, logger }) {
+function RenderCom({node, comDefs, env, runtimeCfg, logger, slotIo}: { node: {} & I_Node, comDefs, env, runtimeCfg, logger, slotIo: any}) {
   const {slots: comSlots, runtime, parent} = node
 
   const rtType = runtime.def.rtType
@@ -168,7 +168,16 @@ function RenderCom({node, comDefs, env, runtimeCfg, logger}: { node: {} & I_Node
   // }
 
   //if (comRuntime) {
-  const io = rt.io//inputs outpus
+  const { inputs, outputs } = rt.io
+
+  // 当slot有io时，rt.io里merge slotIo的输入输出，参考designer的debugrunner里render代码
+  if (inputs && typeof inputs._setInterseptor === 'function' && slotIo?.inputs) {
+    inputs._setInterseptor(slotIo.inputs)
+  }
+  if (outputs && typeof outputs._setInterseptor === 'function' && slotIo?.outputs) {
+    outputs._setInterseptor(slotIo.outputs)
+  }
+
   const slots = {}
   if (comSlots) {
     comSlots.forEach(slot => {
@@ -176,7 +185,7 @@ function RenderCom({node, comDefs, env, runtimeCfg, logger}: { node: {} & I_Node
         id: slot.id,
         title: slot.title,
         //comAry:slot.comAry,
-        render() {
+        render(...args) {
           const {frames} = RT_MAPS[runtime.id]
           const fn = frames[slot.id]
           if (typeof fn === 'function') {
@@ -188,13 +197,16 @@ function RenderCom({node, comDefs, env, runtimeCfg, logger}: { node: {} & I_Node
               {
                 comAry.map(com => {
                     return (
-                      <RenderCom key={com.runtime.id} node={com} comDefs={comDefs} env={env} runtimeCfg={runtimeCfg} logger={logger}/>
+                      <RenderCom slotIo={args[0]} key={com.runtime.id} node={com} comDefs={comDefs} env={env} runtimeCfg={runtimeCfg} logger={logger}/>
                     )
                   }
                 )
               }
             </section>
           )
+        },
+        size() {
+          return slot.comAry.length
         }
       }
     })
@@ -231,8 +243,8 @@ function RenderCom({node, comDefs, env, runtimeCfg, logger}: { node: {} & I_Node
           data: nodeModel.data,
           title:node.runtime.title,
           style,
-          inputs: io.inputs,
-          outputs: io.outputs,
+          inputs,
+          outputs,
           logger: logger(node.runtime)
         })
       }
