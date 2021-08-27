@@ -245,6 +245,7 @@ function RenderCom({node, comDefs, env, runtimeCfg, logger, slotIo}: { node: {} 
     <div id={node.runtime.id} style={{
       width: style.width || '100%',
       display: style.display,
+      overflow: 'hidden',
       // paddingTop: style.marginTop + 'px',
       // paddingBottom: style.marginBottom + 'px',
       paddingLeft: style.marginLeft + 'px',
