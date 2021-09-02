@@ -9,9 +9,16 @@ const RT_MAPS = {}
 type T_LogItem = { catelog: string, content: string, focus: Function, blur: Function }
 
 export function RenderReact({
-                              mainModule, comDefs, inputParams, output,
+                              mainModule,
+                              comDefs,
+                              inputParams,
+                              inputProxies,
+                              outputProxies,
                               env,
-                              runtimeCfg, logs, logger = () => {}
+                              runtimeCfg,
+                              logs,
+                              logger = () => {
+                              }
                             }: {
   mainModule: { frame: I_Frame, slot: {} },
   comDefs: { [nsAndVersion: string]: Function },
@@ -134,7 +141,11 @@ export function RenderReact({
       }
     })
 
-    runner.run()(inputParams ? {params: inputParams} : void 0)
+    runner.run()({
+      inputParams: inputParams ? {params: inputParams} : void 0,
+      inputProxies,
+      outputProxies
+    })
 
     return {frame, slot}
   }, [])
@@ -142,12 +153,20 @@ export function RenderReact({
   const jsx = []
 
   slot.comAry.forEach((node: I_Node) => {
-    jsx.push(<RenderCom key={node.runtime.id} node={node} comDefs={nComDefs} env={env} runtimeCfg={runtimeCfg} logger={logger}/>)
+    jsx.push(<RenderCom key={node.runtime.id} node={node} comDefs={nComDefs} env={env} runtimeCfg={runtimeCfg}
+                        logger={logger}/>)
   })
   return jsx
 }
 
-function RenderCom({node, comDefs, env, runtimeCfg, logger, slotIo}: { node: {} & I_Node, comDefs, env, runtimeCfg, logger, slotIo: any}) {
+function RenderCom({
+                     node,
+                     comDefs,
+                     env,
+                     runtimeCfg,
+                     logger,
+                     slotIo
+                   }: { node: {} & I_Node, comDefs, env, runtimeCfg, logger, slotIo: any }) {
   const {slots: comSlots, runtime, parent} = node
 
   const rtType = runtime.def.rtType
@@ -168,7 +187,7 @@ function RenderCom({node, comDefs, env, runtimeCfg, logger, slotIo}: { node: {} 
   // }
 
   //if (comRuntime) {
-  const { inputs, outputs } = rt.io
+  const {inputs, outputs} = rt.io
 
   // 当slot有io时，rt.io里merge slotIo的输入输出，参考designer的debugrunner里render代码
   if (inputs && typeof inputs._setInterseptor === 'function' && slotIo?.inputs) {
@@ -197,7 +216,8 @@ function RenderCom({node, comDefs, env, runtimeCfg, logger, slotIo}: { node: {} 
               {
                 comAry.map(com => {
                     return (
-                      <RenderCom slotIo={args[0]} key={com.runtime.id} node={com} comDefs={comDefs} env={env} runtimeCfg={runtimeCfg} logger={logger}/>
+                      <RenderCom slotIo={args[0]} key={com.runtime.id} node={com} comDefs={comDefs} env={env}
+                                 runtimeCfg={runtimeCfg} logger={logger}/>
                     )
                   }
                 )
@@ -259,7 +279,7 @@ function RenderCom({node, comDefs, env, runtimeCfg, logger, slotIo}: { node: {} 
           slots: slots,
           env: nenv,
           data: nodeModel.data,
-          title:node.runtime.title,
+          title: node.runtime.title,
           style,
           inputs,
           outputs,
