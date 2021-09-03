@@ -12,8 +12,8 @@ export function RenderReact({
                               mainModule,
                               comDefs,
                               inputParams,
-                              inputProxies,
-                              outputProxies,
+                              inputs,
+                              outputs,
                               env,
                               runtimeCfg,
                               logs,
@@ -23,7 +23,8 @@ export function RenderReact({
   mainModule: { frame: I_Frame, slot: {} },
   comDefs: { [nsAndVersion: string]: Function },
   inputParams?,
-  output?,
+  inputs?: { [id: string]: (fn: Function) => void },
+  outputs?: { [id: string]: Function },
   env: {
     createPortal?: (children) => any,
     fetch?: (url: string) => Promise<any>
@@ -143,8 +144,8 @@ export function RenderReact({
 
     runner.run()({
       inputParams: inputParams ? {params: inputParams} : void 0,
-      inputProxies,
-      outputProxies
+      inputs,
+      outputs
     })
 
     return {frame, slot}
