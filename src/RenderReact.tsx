@@ -1,10 +1,8 @@
 import {compile, createIO, I_Frame, I_Node, I_Pin, I_Runner} from "@mybricks/compiler-js";
 import {useMemo} from "react";
-import {igonreObservableBefore, observable, clone} from "@mybricks/rxui";
+import {igonreObservableBefore, observable, clone,uuid} from "@mybricks/rxui";
 
 import css from './skin.less'
-
-const RT_MAPS = {}
 
 type T_LogItem = { catelog: string, content: string, focus: Function, blur: Function }
 
@@ -43,6 +41,8 @@ export function RenderReact({
 }) {
   const nComDefs = Object.assign({}, comDefs)
 
+  const RT_MAPS = useMemo(()=>{return {}},[])////TODO
+
   const {frame, slot} = useMemo(() => {
     const {frame, slot} = observable(mainModule)
     const runner: I_Runner = compile(frame, {
@@ -55,6 +55,7 @@ export function RenderReact({
                 //igonreObservableBefore()//TODO 待测试
               }
             })
+
             RT_MAPS[node.runtime.id] = {scopePath, frameLable, frames, io}
 
             const rtDef = node.runtime.def
@@ -153,9 +154,11 @@ export function RenderReact({
 
   const jsx = []
 
+  const rid = uuid()
+
   slot.comAry.forEach((node: I_Node) => {
-    jsx.push(<RenderCom key={node.runtime.id} node={node} comDefs={nComDefs} env={env} runtimeCfg={runtimeCfg}
-                        logger={logger}/>)
+    jsx.push(<RenderCom key={rid+node.runtime.id} node={node} comDefs={nComDefs} env={env} runtimeCfg={runtimeCfg}
+                        logger={logger} rtMaps={RT_MAPS}/>)
   })
   return jsx
 }
@@ -166,8 +169,9 @@ function RenderCom({
                      env,
                      runtimeCfg,
                      logger,
-                     slotIo
-                   }: { node: {} & I_Node, comDefs, env, runtimeCfg, logger, slotIo: any }) {
+                     slotIo,
+  rtMaps
+                   }: { node: {} & I_Node, comDefs, env, runtimeCfg, logger, slotIo: any,rtMaps:{} }) {
   const {slots: comSlots, runtime, parent} = node
 
   const rtType = runtime.def.rtType
@@ -179,7 +183,7 @@ function RenderCom({
   const nodeModel = runtime.model
 
   const comRuntime = comDefs[runtime.def.namespace + '@' + runtime.def.version]
-  const rt = RT_MAPS[runtime.id]
+  const rt = rtMaps[runtime.id]
 
   //
   // if (!comRuntime) {
@@ -206,7 +210,7 @@ function RenderCom({
         title: slot.title,
         //comAry:slot.comAry,
         render(...args) {
-          const {frames} = RT_MAPS[runtime.id]
+          const {frames} = rtMaps[runtime.id]
           const fn = frames[slot.id]
           if (typeof fn === 'function') {
             fn()//兼容之前的非框图
@@ -218,7 +222,7 @@ function RenderCom({
                 comAry.map(com => {
                     return (
                       <RenderCom slotIo={args[0]} key={com.runtime.id} node={com} comDefs={comDefs} env={env}
-                                 runtimeCfg={runtimeCfg} logger={logger}/>
+                                 runtimeCfg={runtimeCfg} logger={logger} rtMaps={rtMaps}/>
                     )
                   }
                 )

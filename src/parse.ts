@@ -1,5 +1,6 @@
 ﻿import {E_ItemType, I_Frame, isTypeof} from "@mybricks/compiler-js";
 import {KEY_STAGEVIEW} from "./constants";
+import {uuid} from './utils'
 
 let allRefs, refLoaded, translatedMap
 
@@ -23,14 +24,18 @@ export function parse(pageContent: { [KEY_STAGEVIEW] }): T_Rtn {
 
   const requireComs = []
 
+  const uid = uuid()
+
   const model = getRef(def['_ref_'])
   const mainModule = model['mainModule']
   if (mainModule.frame) {
     function parseFrame(frame) {
+      frame.id +=uid
       if (frame.comAry) {
         frame.comAry.forEach(com => {
           if (isTypeof(com, E_ItemType.NODE)) {
             const {runtime} = com
+            runtime.id += uid//uuid
             const key = runtime.def.namespace + '@' + runtime.def.version
             if (requireComs.indexOf(key) <= 0) {
               requireComs.push(key)
