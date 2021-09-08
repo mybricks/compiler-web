@@ -1,6 +1,5 @@
 ﻿import {E_ItemType, I_Frame, isTypeof} from "@mybricks/compiler-js";
 import {KEY_STAGEVIEW} from "./constants";
-import {uuid} from './utils'
 
 let allRefs, refLoaded, translatedMap
 
@@ -12,11 +11,11 @@ type T_Rtn = {
   }
 }
 
-const ParsedRefs = {}
 
 export function parse(oriPageContent: { [KEY_STAGEVIEW] }): T_Rtn {
   //console.time("str")
-  let pageContent = JSON.parse(JSON.stringify(oriPageContent))
+  //const pageContent = JSON.parse(JSON.stringify(oriPageContent))
+  let pageContent = oriPageContent
 
   translatedMap = new WeakMap()
   refLoaded = {}////TODO curScope 问题
@@ -29,13 +28,13 @@ export function parse(oriPageContent: { [KEY_STAGEVIEW] }): T_Rtn {
 
   const requireComs = []
 
-  const uid = uuid()
+  //const uid = uuid()
 
   const model = getRef(def['_ref_'])
   const mainModule = model['mainModule']
   if (mainModule.frame) {
     function parseFrame(frame) {
-      frame.id +=uid
+      //frame.id +=uid
       if (frame.comAry) {
         frame.comAry.forEach(com => {
           if (isTypeof(com, E_ItemType.NODE)) {
