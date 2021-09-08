@@ -12,9 +12,14 @@ type T_Rtn = {
   }
 }
 
-export function parse(pageContent: { [KEY_STAGEVIEW] }): T_Rtn {
+const ParsedRefs = {}
+
+export function parse(oriPageContent: { [KEY_STAGEVIEW] }): T_Rtn {
+  //console.time("str")
+  let pageContent = JSON.parse(JSON.stringify(oriPageContent))
+
   translatedMap = new WeakMap()
-  refLoaded = {}
+  refLoaded = {}////TODO curScope 问题
 
   const stageView = pageContent[KEY_STAGEVIEW]
 
@@ -35,7 +40,7 @@ export function parse(pageContent: { [KEY_STAGEVIEW] }): T_Rtn {
         frame.comAry.forEach(com => {
           if (isTypeof(com, E_ItemType.NODE)) {
             const {runtime} = com
-            runtime.id += uid//uuid
+            //runtime.id += uid//uuid
             const key = runtime.def.namespace + '@' + runtime.def.version
             if (requireComs.indexOf(key) <= 0) {
               requireComs.push(key)
@@ -57,6 +62,8 @@ export function parse(pageContent: { [KEY_STAGEVIEW] }): T_Rtn {
   allRefs = void 0
   refLoaded = void 0
   translatedMap = void 0
+
+  //console.timeEnd("str") //结束
 
   return rtn
 }

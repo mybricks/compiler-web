@@ -52,7 +52,7 @@ module.exports = {
   resolve: {
     extensions: ['.tsx', '.ts'],
     alias: {
-      'xgraph.compiler': require('path').resolve(__dirname, '../../compiler/index.ts'),
+      '@mybricks/compiler-js': require('path').resolve(__dirname, '../../compiler-js/index.ts'),
     }
   },
   output: {

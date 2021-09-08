@@ -1,6 +1,6 @@
 {
   "name": "@mybricks/compiler-web",
-  "version": "0.0.45",
+  "version": "0.0.49",
   "main": "main.js",
   "scripts": {
     "test": "jest",
