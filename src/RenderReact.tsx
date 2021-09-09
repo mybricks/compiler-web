@@ -154,10 +154,10 @@ export function RenderReact({
 
   const jsx = []
 
-  const rid = uuid()
+  // const rid = uuid()
 
   slot.comAry.forEach((node: I_Node) => {
-    jsx.push(<RenderCom key={rid+node.runtime.id} node={node} comDefs={nComDefs} env={env} runtimeCfg={runtimeCfg}
+    jsx.push(<RenderCom key={node.runtime.id} node={node} comDefs={nComDefs} env={env} runtimeCfg={runtimeCfg}
                         logger={logger} rtMaps={RT_MAPS}/>)
   })
   return jsx
