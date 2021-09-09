@@ -8,7 +8,8 @@ import React, {useMemo} from 'react'
 // import libNormalLogic from '../../../opensource/comlib-logic-normal'
 // import libPc from '../../../opensource/comlib-pc-normal'
 
-import libPc from '../../../Kwai/comlibs/h5-common-lib/test.js'
+//import libPc from '../../../Kwai/comlibs/h5-common-lib/test.js'
+import libPc from '../../../Kwai/comlibs/pc-common-lib/index.js'
 import {getComLogger} from "../../../Kwai/fangzhou-paas/src/apps/eshop-activity/desn/publish/entry/utils";
 
 // import libMab from '../../../demo-mpa/comlibs/comlib-pc-mab'
@@ -65,17 +66,25 @@ function PageCom(mainModule, comDefs) {
   return () => {
     console.log('-------222')
 
-    const xx = useMemo(()=><RenderReact mainModule={mainModule} comDefs={comDefs}
-                                        logs={{
-                                          info({catelog, content, focus, blur}) {
-                                          console.log(catelog, content)
-                                        },
-                                          error({catelog, content, focus, blur}) {
-                                          console.log(catelog, content)
-                                        }
-                                        }}/>,[])
+    // const xx = useMemo(()=><RenderReact mainModule={mainModule} comDefs={comDefs}
+    //                                     logs={{
+    //                                       info({catelog, content, focus, blur}) {
+    //                                       console.log(catelog, content)
+    //                                     },
+    //                                       error({catelog, content, focus, blur}) {
+    //                                       console.log(catelog, content)
+    //                                     }
+    //                                     }}/>,[])
 
-    return xx
+    return <RenderReact mainModule={mainModule} comDefs={comDefs}
+                        logs={{
+                          info({catelog, content, focus, blur}) {
+                            console.log(catelog, content)
+                          },
+                          error({catelog, content, focus, blur}) {
+                            console.log(catelog, content)
+                          }
+                        }}/>
   }
 
 }

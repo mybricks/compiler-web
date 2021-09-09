@@ -1,6 +1,6 @@
 import {compile, createIO, I_Frame, I_Node, I_Pin, I_Runner} from "@mybricks/compiler-js";
 import {useMemo} from "react";
-import {igonreObservableBefore, observable, clone,uuid} from "@mybricks/rxui";
+import {igonreObservableBefore, observable, clone, uuid} from "@mybricks/rxui";
 
 import * as css from './skin.less'
 
@@ -39,14 +39,11 @@ export function RenderReact({
   },
   logger: () => void
 }) {
-  console.log('------3333')
+  const jsx = useMemo(() => {
+    const nComDefs = Object.assign({}, comDefs)
 
+    const RT_MAPS = {}
 
-  const nComDefs = Object.assign({}, comDefs)
-
-  const RT_MAPS = useMemo(()=>{return {}},[])////TODO
-
-  const {frame, slot} = useMemo(() => {
     const {frame, slot} = observable(mainModule)
     const runner: I_Runner = compile(frame, {
       // envVars,
@@ -152,17 +149,17 @@ export function RenderReact({
       outputs
     })
 
-    return {frame, slot}
+    const jsx = []
+
+    // const rid = uuid()
+
+    slot.comAry.forEach((node: I_Node) => {
+      jsx.push(<RenderCom key={node.runtime.id} node={node} comDefs={nComDefs} env={env} runtimeCfg={runtimeCfg}
+                          logger={logger} rtMaps={RT_MAPS}/>)
+    })
+    return jsx
   }, [])
 
-  const jsx = []
-
-  // const rid = uuid()
-
-  slot.comAry.forEach((node: I_Node) => {
-    jsx.push(<RenderCom key={node.runtime.id} node={node} comDefs={nComDefs} env={env} runtimeCfg={runtimeCfg}
-                        logger={logger} rtMaps={RT_MAPS}/>)
-  })
   return jsx
 }
 
@@ -173,8 +170,8 @@ function RenderCom({
                      runtimeCfg,
                      logger,
                      slotIo,
-  rtMaps
-                   }: { node: {} & I_Node, comDefs, env, runtimeCfg, logger, slotIo: any,rtMaps:{} }) {
+                     rtMaps
+                   }: { node: {} & I_Node, comDefs, env, runtimeCfg, logger, slotIo: any, rtMaps: {} }) {
   const {slots: comSlots, runtime, parent} = node
 
   const rtType = runtime.def.rtType
