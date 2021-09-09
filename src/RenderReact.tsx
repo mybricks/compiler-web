@@ -2,7 +2,7 @@ import {compile, createIO, I_Frame, I_Node, I_Pin, I_Runner} from "@mybricks/com
 import {useMemo} from "react";
 import {igonreObservableBefore, observable, clone,uuid} from "@mybricks/rxui";
 
-import css from './skin.less'
+import * as css from './skin.less'
 
 type T_LogItem = { catelog: string, content: string, focus: Function, blur: Function }
 
@@ -39,6 +39,9 @@ export function RenderReact({
   },
   logger: () => void
 }) {
+  console.log('------3333')
+
+
   const nComDefs = Object.assign({}, comDefs)
 
   const RT_MAPS = useMemo(()=>{return {}},[])////TODO
@@ -144,7 +147,7 @@ export function RenderReact({
     })
 
     runner.run()({
-      inputParams: inputParams ? {params: inputParams} : void 0,
+      inputParams,
       inputs,
       outputs
     })

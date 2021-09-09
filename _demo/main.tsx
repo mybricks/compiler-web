@@ -3,22 +3,22 @@ import {parse} from '..'
 import {RenderReact} from "@mybricks/compiler-web";
 
 import data from './dump.json'
-import React from 'react'
+import React, {useMemo} from 'react'
 
 // import libNormalLogic from '../../../opensource/comlib-logic-normal'
 // import libPc from '../../../opensource/comlib-pc-normal'
 
-import libNormalLogic from '../../../lib-normal-logic'
-import libPc from '../../../lib-normal-ui-pc-v2'
+import libPc from '../../../Kwai/comlibs/h5-common-lib/test.js'
+import {getComLogger} from "../../../Kwai/fangzhou-paas/src/apps/eshop-activity/desn/publish/entry/utils";
 
 // import libMab from '../../../demo-mpa/comlibs/comlib-pc-mab'
 
 const pageAry = data['pageAry']
-const allLibs = [libNormalLogic, libPc]
+const allLibs = [libPc]
 
 var parent = document.createElement('div')
-render(GenRouter, parent, () => {
-    document.getElementById('app').replaceWith(...[...parent.childNodes])
+render(GenRouter, document.getElementById('app'), () => {
+    //document.getElementById('app').replaceWith(...[...parent.childNodes])
   }
 )
 
@@ -56,49 +56,28 @@ function genPage(pageContent, allLibs) {
     comDefs[ns] = comDef.runtime
   })
 
+  console.log('-------111')
+
   return PageCom(mainModule, comDefs)
 }
 
 function PageCom(mainModule, comDefs) {
   return () => {
-    return RenderReact({
-      mainModule: mainModule,
-      comDefs: comDefs,
-      runtimeCfg: {
-        routeTo(id, params) {
-          window.location.hash = id
-        },
-        getUserToken() {
-          return '540a1e63a71e7fa3a494748356f790d1'
-        },
-        getEnvType() {
-          return 'fat'
-        },
-        getEnvParam(name) {
-          console.log(name)
-          const TEMP = {////TODO
-            userToken: '3b73a2405d2aafb9c0d3ba47ed8d8af7',
-            env: 'fat',
-            tripType: 0,
-            id: '640872556332699648',
-            bizType: 0
-          }
+    console.log('-------222')
 
-          return TEMP[name]
-        }
-      }, logs: {
-        info({catelog, content, focus, blur}) {
-          console.log(catelog, content)
-          // if(focus){//focus可以聚焦当前组件
-          //   focus()
-          // }
-        },
-        error({catelog, content, focus, blur}) {
-          console.log(catelog, content)
-        }
-      }
-    })
+    const xx = useMemo(()=><RenderReact mainModule={mainModule} comDefs={comDefs}
+                                        logs={{
+                                          info({catelog, content, focus, blur}) {
+                                          console.log(catelog, content)
+                                        },
+                                          error({catelog, content, focus, blur}) {
+                                          console.log(catelog, content)
+                                        }
+                                        }}/>,[])
+
+    return xx
   }
+
 }
 
 function findInLibs(fn, libs) {

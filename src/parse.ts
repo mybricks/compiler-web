@@ -14,8 +14,8 @@ type T_Rtn = {
 
 export function parse(oriPageContent: { [KEY_STAGEVIEW] }): T_Rtn {
   //console.time("str")
-  //const pageContent = JSON.parse(JSON.stringify(oriPageContent))
-  let pageContent = oriPageContent
+  const pageContent = JSON.parse(JSON.stringify(oriPageContent))
+  //let pageContent = oriPageContent
 
   translatedMap = new WeakMap()
   refLoaded = {}////TODO curScope 问题
