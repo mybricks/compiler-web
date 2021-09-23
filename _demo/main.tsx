@@ -9,7 +9,7 @@ import React, {useMemo} from 'react'
 // import libPc from '../../../opensource/comlib-pc-normal'
 
 //import libPc from '../../../Kwai/comlibs/h5-common-lib/test.js'
-import libPc from '../../../Kwai/comlibs/pc-common-lib/index.js'
+import libPc from '../../../Kwai/comlibs/pc-common-lib/test.js'
 import {getComLogger} from "../../../Kwai/fangzhou-paas/src/apps/eshop-activity/desn/publish/entry/utils";
 
 // import libMab from '../../../demo-mpa/comlibs/comlib-pc-mab'
@@ -77,6 +77,18 @@ function PageCom(mainModule, comDefs) {
     //                                     }}/>,[])
 
     return <RenderReact mainModule={mainModule} comDefs={comDefs}
+                        env={
+                          {
+                            hasPermission(){
+
+                            },
+                            get getEnvType () {
+                              return () => {
+                                return 'staging'
+                              }
+                            }
+                          }
+                        }
                         logs={{
                           info({catelog, content, focus, blur}) {
                             console.log(catelog, content)
