@@ -5,8 +5,6 @@ node_modules/*
 .tmp
 .history
 **/*.js.map
-src/
 _demo_router/
 _demo/
-build/
 package-lock.json
