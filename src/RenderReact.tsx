@@ -243,8 +243,6 @@ function RenderCom({
 
   if (parent.style.layout === 'absolute') {
     absoluteStyle.position = 'absolute'
-    absoluteStyle.top = style.top + 'px'
-    absoluteStyle.left = style.left + 'px'
   }
 
   // TODO 临时解决设置上下负边距的问题
@@ -262,6 +260,10 @@ function RenderCom({
     otherStyle.paddingBottom = style.marginBottom + 'px'
   }
 
+  if (style.position === 'fixed') {
+    otherStyle.zIndex = style.zIndex
+  }
+
   const nenv = Object.assign({
     runtime: runtimeCfg || {}
   }, env || {})
@@ -276,6 +278,8 @@ function RenderCom({
       paddingLeft: style.marginLeft + 'px',
       paddingRight: style.marginRight + 'px',
       position: style.position || 'relative',
+      top: style.top + 'px',
+      left: style.left + 'px',
       ...otherStyle,
       ...absoluteStyle
     }} className={`${node.runtime._focus ? css.debugFocus : ''}`}>
