@@ -260,8 +260,10 @@ function RenderCom({
     otherStyle.paddingBottom = style.marginBottom + 'px'
   }
 
-  if (style.position === 'fixed') {
+  if (['fixed', 'absolute'].includes(style.position) || absoluteStyle.position === 'absolute') {
     otherStyle.zIndex = style.zIndex
+    otherStyle.top = style.top + 'px'
+    otherStyle.left = style.left + 'px'
   }
 
   const nenv = Object.assign({
@@ -278,8 +280,6 @@ function RenderCom({
       paddingLeft: style.marginLeft + 'px',
       paddingRight: style.marginRight + 'px',
       position: style.position || 'relative',
-      top: style.top + 'px',
-      left: style.left + 'px',
       ...otherStyle,
       ...absoluteStyle
     }} className={`${node.runtime._focus ? css.debugFocus : ''}`}>
