@@ -192,14 +192,14 @@ function RenderCom({
   // }
 
   //if (comRuntime) {
-  const {inputs, outputs} = rt.io
-
+  const {inputs, outputs,fork} = rt.io
+  let nInputs = inputs,nOutputs = outputs
   // 当slot有io时，rt.io里merge slotIo的输入输出，参考designer的debugrunner里render代码
   if (inputs && typeof inputs._setInterseptor === 'function' && slotIo?.inputs) {
-    inputs._setInterseptor(slotIo.inputs)
+    nInputs = fork('inputs',slotIo.inputs)
   }
   if (outputs && typeof outputs._setInterseptor === 'function' && slotIo?.outputs) {
-    outputs._setInterseptor(slotIo.outputs)
+    nOutputs = fork('outputs',slotIo.outputs)
   }
 
   const slots = {}
@@ -295,8 +295,8 @@ function RenderCom({
           data: nodeModel.data,
           title: node.runtime.title,
           style,
-          inputs,
-          outputs,
+          inputs:nInputs,
+          outputs:nOutputs,
           logger: logger(node.runtime)
         })
       }
