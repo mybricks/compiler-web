@@ -391,16 +391,32 @@ function getMarginStyle({style}) {
   } = style
 
   if (isNumber(marginTop)) {
-    marginStyle.marginTop = marginTop + 'px'
+    if (marginTop > 0) {
+      marginStyle.paddingTop = marginTop + 'px'
+    } else {
+      marginStyle.marginTop = marginTop + 'px'
+    }
   }
   if (isNumber(marginLeft)) {
-    marginStyle.marginLeft = marginLeft + 'px'
+    if (marginLeft > 0) {
+      marginStyle.paddingLeft = marginLeft + 'px'
+    } else {
+      marginStyle.marginLeft = marginLeft + 'px'
+    }
   }
   if (isNumber(marginRight)) {
-    marginStyle.marginRight = marginRight + 'px'
+    if (marginRight > 0) {
+      marginStyle.paddingRight = marginRight + 'px'
+    } else {
+      marginStyle.marginRight = marginRight + 'px'
+    }
   }
   if (isNumber(marginBottom)) {
-    marginStyle.marginBottom = marginBottom + 'px'
+    if (marginBottom > 0) {
+      marginStyle.paddingBottom = marginBottom + 'px'
+    } else {
+      marginStyle.marginBottom = marginBottom + 'px'
+    }
   }
 
   return marginStyle
