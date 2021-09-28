@@ -195,10 +195,10 @@ function RenderCom({
   const {inputs, outputs,fork} = rt.io
   let nInputs = inputs,nOutputs = outputs
   // 当slot有io时，rt.io里merge slotIo的输入输出，参考designer的debugrunner里render代码
-  if (inputs && typeof inputs._setInterseptor === 'function' && slotIo?.inputs) {
+  if (inputs  && slotIo?.inputs) {
     nInputs = fork('inputs',slotIo.inputs)
   }
-  if (outputs && typeof outputs._setInterseptor === 'function' && slotIo?.outputs) {
+  if (outputs  && slotIo?.outputs) {
     nOutputs = fork('outputs',slotIo.outputs)
   }
 
