@@ -248,17 +248,17 @@ function RenderCom({
   // TODO 临时解决设置上下负边距的问题
   const otherStyle: any = {}
 
-  if (style.marginTop < 0) {
-    otherStyle.marginTop = style.marginTop + 'px'
-  } else {
-    otherStyle.paddingTop = style.marginTop + 'px'
-  }
+  // if (style.marginTop < 0) {
+  //   otherStyle.marginTop = style.marginTop + 'px'
+  // } else {
+  //   otherStyle.paddingTop = style.marginTop + 'px'
+  // }
 
-  if (style.marginBottom < 0) {
-    otherStyle.marginBottom = style.marginBottom + 'px'
-  } else {
-    otherStyle.paddingBottom = style.marginBottom + 'px'
-  }
+  // if (style.marginBottom < 0) {
+  //   otherStyle.marginBottom = style.marginBottom + 'px'
+  // } else {
+  //   otherStyle.paddingBottom = style.marginBottom + 'px'
+  // }
 
   if (['fixed', 'absolute'].includes(style.position) || absoluteStyle.position === 'absolute') {
     otherStyle.zIndex = style.zIndex
@@ -270,19 +270,24 @@ function RenderCom({
     runtime: runtimeCfg || {}
   }, env || {})
 
+  const classes = getClasses({node, style})
+  const sizeStyle = getSizeStyle({style})
+  const marginStyle = getMarginStyle({style})
+
   return (
     <div id={node.runtime.id} style={{
-      width: style.width || '100%',
       display: style.display,
       overflow: 'hidden',
       // paddingTop: style.marginTop + 'px',
       // paddingBottom: style.marginBottom + 'px',
-      paddingLeft: style.marginLeft + 'px',
-      paddingRight: style.marginRight + 'px',
+      // paddingLeft: style.marginLeft + 'px',
+      // paddingRight: style.marginRight + 'px',
       position: style.position || 'relative',
       ...otherStyle,
-      ...absoluteStyle
-    }} className={`${node.runtime._focus ? css.debugFocus : ''}`}>
+      ...absoluteStyle,
+      ...sizeStyle,
+      ...marginStyle
+    }} className={classes}>
       {
         comRuntime({
           slots: slots,
@@ -338,4 +343,69 @@ function calSlotStyle(model) {
   }
 
   return rtn.join(' ')
+}
+
+function getClasses({node, style}) {
+  const classes = []
+
+  if (node.runtime._focus) {
+    classes.push(css.debugFocus)
+  }
+
+  if (style.flex === 1) {
+    classes.push(css.flex)
+  }
+
+  return classes.join(' ')
+}
+
+function getSizeStyle({style}) {
+  const sizeStyle: any = {}
+  const { width, height } = style
+
+  if (!width) {
+    sizeStyle.width = '100%'
+  } else if (isNumber(width)) {
+    sizeStyle.width = width + 'px'
+  } else if (width) {
+    sizeStyle.width = width
+  }
+
+  if (isNumber(height)) {
+    sizeStyle.height = height + 'px'
+  } else if (height) {
+    sizeStyle.height = height
+  }
+
+  return sizeStyle
+}
+
+function getMarginStyle({style}) {
+  const marginStyle: any = {}
+
+  const {
+    marginTop,
+    marginLeft,
+    marginRight,
+    marginBottom
+  } = style
+
+  if (isNumber(marginTop)) {
+    marginStyle.marginTop = marginTop + 'px'
+  }
+  if (isNumber(marginLeft)) {
+    marginStyle.marginLeft = marginLeft + 'px'
+  }
+  if (isNumber(marginRight)) {
+    marginStyle.marginRight = marginRight + 'px'
+  }
+  if (isNumber(marginBottom)) {
+    marginStyle.marginBottom = marginBottom + 'px'
+  }
+
+  return marginStyle
+}
+
+function isNumber(num: any) {
+  return typeof num === 'number' && !isNaN(num)
 }
