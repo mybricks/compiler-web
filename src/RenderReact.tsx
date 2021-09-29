@@ -230,7 +230,7 @@ function RenderCom({
             </section>
           )
         },
-        size() {
+        get size() {
           return slot.comAry.length
         }
       }
