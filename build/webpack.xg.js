@@ -22,7 +22,8 @@ module.exports = merge(commonCfg, {
     'blocks': 'blocks',
     'BizCharts': 'BizCharts',
     'bizcharts': 'BizCharts',
-    '@ant-design/icons': '@ant-design',
+    '@m-ui/icons': 'icons',
+    '@ant-design/icons': 'icons',
     'moment':'moment'
   }],
   devtool: 'cheap-source-map',//devtool: 'cheap-source-map',

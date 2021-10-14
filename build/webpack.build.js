@@ -3,7 +3,7 @@
 module.exports = {
   entry: {
     parse: './src/parse.ts',
-    renderReact: './src/RenderReact.tsx'
+    renderReact: './src/render/index.tsx'
   },
   //devtool: 'cheap-module-source-map',
   //devtool: 'cheap-module-eval-source-map',
