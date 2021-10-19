@@ -3,19 +3,20 @@ import * as css from './skin.less'
 import {useStub} from './ExeMonitor'
 
 export default function RenderCom({
-                     node,
-                     comDefs,
-                     env,
-                     runtimeCfg,
-                     logger,
-                     slotIo,
-                     rtMaps
-                   }: { node: {} & I_Node, comDefs, env, runtimeCfg, logger, slotIo: any, rtMaps: {} }) {
+                                    node,
+                                    comDefs,
+                                    env,
+                                    runtimeCfg,
+                                    logger,
+                                    slotIo,
+                                    rtMaps
+                                  }: { node: {} & I_Node, comDefs, env, runtimeCfg, logger, slotIo: any, rtMaps: {} }) {
   const {slots: comSlots, runtime, parent} = node
 
-  useStub(()=>{
-    throw new Error(`渲染次数过多,代码中可能存在循环依赖的情况,请检查.`)
-  },`${runtime.def.namespace + '@' + runtime.def.version} (id=${runtime.id})`)
+  const myKey = `${runtime.def.namespace + '@' + runtime.def.version} (id=${runtime.id})`
+  useStub(() => {
+    throw new Error(`${myKey} 渲染次数过多,代码中可能存在循环依赖的情况,请检查.`)
+  }, myKey)
 
 
   const rtType = runtime.def.rtType
@@ -29,14 +30,14 @@ export default function RenderCom({
   const comRuntime = comDefs[runtime.def.namespace + '@' + runtime.def.version]
   const rt = rtMaps[runtime.id]
 
-  const {inputs, outputs,fork} = rt.io
-  let nInputs = inputs,nOutputs = outputs
+  const {inputs, outputs, fork} = rt.io
+  let nInputs = inputs, nOutputs = outputs
   // 当slot有io时，rt.io里merge slotIo的输入输出，参考designer的debugrunner里render代码
-  if (inputs  && slotIo?.inputs) {
-    nInputs = fork('inputs',slotIo.inputs)
+  if (inputs && slotIo?.inputs) {
+    nInputs = fork('inputs', slotIo.inputs)
   }
-  if (outputs  && slotIo?.outputs) {
-    nOutputs = fork('outputs',slotIo.outputs)
+  if (outputs && slotIo?.outputs) {
+    nOutputs = fork('outputs', slotIo.outputs)
   }
 
   const slots = {}
@@ -132,8 +133,8 @@ export default function RenderCom({
           data: nodeModel.data,
           title: node.runtime.title,
           style,
-          inputs:nInputs,
-          outputs:nOutputs,
+          inputs: nInputs,
+          outputs: nOutputs,
           logger: logger(node.runtime)
         })
       }
@@ -198,7 +199,7 @@ function getClasses({node, style}) {
 
 function getSizeStyle({style}) {
   const sizeStyle: any = {}
-  const { width, height } = style
+  const {width, height} = style
 
   if (!width) {
     sizeStyle.width = '100%'

@@ -1,32 +1,24 @@
 import {useEffect, useMemo} from "react";
 
-const counterMap = {}
+const counterMap: { [key: string]: { c: number, last: number } } = {}
 
-export function useStub(fn,key) {
+export function useStub(fn, key) {
   useEffect(() => {
-    let t = counterMap[key]
-    if (t === void 0) {
-      t = 0
+    let tv = counterMap[key]
+    if (tv === void 0) {
+      tv = {c: 0, last: new Date().getTime()}
     }
-    counterMap[key] = ++t
 
-    if (t > 1000) {
+    const now = new Date().getTime()
+    if (now - tv.last < 17) {
+      tv.c++
+      tv.last = now
+    }
+
+    counterMap[key] = tv
+
+    if (tv.c > 1000) {
       fn()
     }
   })
-
-
-  // useEffect(() => {
-  //   return () => {
-  //     let t = counterMap[key]
-  //     if (t === void 0) {
-  //       t = 0
-  //     }
-  //     counterMap[key] = t++
-  //
-  //     if(t>1000){
-  //       throw new Error(`xxxxx`)
-  //     }
-  //   }
-  // })
 }
