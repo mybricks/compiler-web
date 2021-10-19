@@ -7,6 +7,7 @@ export function useStub(fn, key) {
     let tv = counterMap[key]
     if (tv === void 0) {
       tv = {c: 0, last: new Date().getTime()}
+      counterMap[key] = tv
     }
 
     const now = new Date().getTime()
@@ -14,8 +15,6 @@ export function useStub(fn, key) {
       tv.c++
       tv.last = now
     }
-
-    counterMap[key] = tv
 
     if (tv.c > 1000) {
       fn()
