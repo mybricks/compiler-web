@@ -11,10 +11,13 @@ export function useStub(fn, key) {
     }
 
     const now = new Date().getTime()
-    if (now - tv.last < 17) {
+    if (now - tv.last < 34) {//34=17*2
       tv.c++
-      tv.last = now
+    }else{
+      tv.c = 0//重置
     }
+
+    tv.last = now
 
     if (tv.c > 1000) {
       fn()
