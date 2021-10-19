@@ -219,7 +219,7 @@ function getSizeStyle({style}) {
 }
 
 function getMarginStyle({style}) {
-  const marginStyle: any = {}
+  // const marginStyle: any = {}
 
   const {
     marginTop,
@@ -228,36 +228,41 @@ function getMarginStyle({style}) {
     marginBottom
   } = style
 
-  if (isNumber(marginTop)) {
-    if (marginTop > 0) {
-      marginStyle.paddingTop = marginTop + 'px'
-    } else {
-      marginStyle.marginTop = marginTop + 'px'
-    }
-  }
-  if (isNumber(marginLeft)) {
-    if (marginLeft > 0) {
-      marginStyle.paddingLeft = marginLeft + 'px'
-    } else {
-      marginStyle.marginLeft = marginLeft + 'px'
-    }
-  }
-  if (isNumber(marginRight)) {
-    if (marginRight > 0) {
-      marginStyle.paddingRight = marginRight + 'px'
-    } else {
-      marginStyle.marginRight = marginRight + 'px'
-    }
-  }
-  if (isNumber(marginBottom)) {
-    if (marginBottom > 0) {
-      marginStyle.paddingBottom = marginBottom + 'px'
-    } else {
-      marginStyle.marginBottom = marginBottom + 'px'
-    }
-  }
+  // if (isNumber(marginTop)) {
+  //   if (marginTop > 0) {
+  //     marginStyle.paddingTop = marginTop + 'px'
+  //   } else {
+  //     marginStyle.marginTop = marginTop + 'px'
+  //   }
+  // }
+  // if (isNumber(marginLeft)) {
+  //   if (marginLeft > 0) {
+  //     marginStyle.paddingLeft = marginLeft + 'px'
+  //   } else {
+  //     marginStyle.marginLeft = marginLeft + 'px'
+  //   }
+  // }
+  // if (isNumber(marginRight)) {
+  //   if (marginRight > 0) {
+  //     marginStyle.paddingRight = marginRight + 'px'
+  //   } else {
+  //     marginStyle.marginRight = marginRight + 'px'
+  //   }
+  // }
+  // if (isNumber(marginBottom)) {
+  //   if (marginBottom > 0) {
+  //     marginStyle.paddingBottom = marginBottom + 'px'
+  //   } else {
+  //     marginStyle.marginBottom = marginBottom + 'px'
+  //   }
+  // }
 
-  return marginStyle
+  return {
+    marginTop: marginTop + 'px',
+    marginLeft: marginLeft + 'px',
+    marginRight: marginRight + 'px',
+    marginBottom: marginBottom + 'px'
+  }
 }
 
 function isNumber(num: any) {
