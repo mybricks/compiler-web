@@ -184,7 +184,7 @@ function calSlotStyle(model) {
 }
 
 function getClasses({node, style}) {
-  const classes = []
+  const classes = [css.com]
 
   if (node.runtime._focus) {
     classes.push(css.debugFocus)
