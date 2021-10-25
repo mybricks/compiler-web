@@ -124,7 +124,8 @@ export default function RenderCom({
       ...otherStyle,
       ...absoluteStyle,
       ...sizeStyle,
-      ...marginStyle
+      ...marginStyle,
+      ...(style.ext || {})
     }} className={classes}>
       {
         comRuntime({
