@@ -1,5 +1,5 @@
 import {compile, createIO, I_Frame, I_Node, I_Pin, I_Runner} from "@mybricks/compiler-js";
-import {useMemo} from "react";
+import React, {useMemo} from "react";
 import {clone, observable} from "@mybricks/rxui";
 import RenderCom from "./RenderCom";
 
