@@ -8,6 +8,7 @@
     "build-all": "webpack --config build/webpack.build-all.js -p",
     "build-bundle": "webpack --config build/webpack.build-bundle.js -p",
     "dev": "webpack-dev-server --config build/webpack.dev.js",
+    "watch-all": "webpack-dev-server --config build/webpack.watch-all.js",
     "xg": "webpack-dev-server --config build/webpack.xg.js"
   },
   "author": "CheMingjun",
