@@ -77,12 +77,6 @@ export default function RenderCom({
 
   const style = nodeModel.style
 
-  let absoluteStyle = {}
-
-  if (parent.style.layout === 'absolute') {
-    absoluteStyle.position = 'absolute'
-  }
-
   // TODO 临时解决设置上下负边距的问题
   const otherStyle: any = {}
 
@@ -98,10 +92,25 @@ export default function RenderCom({
   //   otherStyle.paddingBottom = style.marginBottom + 'px'
   // }
 
-  if (['fixed', 'absolute'].includes(style.position) || absoluteStyle.position === 'absolute') {
-    otherStyle.zIndex = style.zIndex
-    otherStyle.top = style.top + 'px'
-    otherStyle.left = style.left + 'px'
+  switch (true) {
+    case ['fixed'].includes(style.position): {
+      otherStyle.position = 'fixed'
+      otherStyle.zIndex = style.zIndex;
+      style.fixedX === 'right' ? (otherStyle.right = style.right + 'px') : (otherStyle.left = style.left + 'px');
+      style.fixedY === 'bottom' ? (otherStyle.bottom = style.bottom + 'px') : (otherStyle.top = style.top + 'px');
+      break
+    }
+    // 自身是绝对 || 跟随绝对定位的父组件
+    case ['absolute'].includes(style.position) || (parent.style.layout === 'absolute' && style.position === undefined): {
+      otherStyle.position = 'absolute'
+      otherStyle.zIndex = style.zIndex;
+      otherStyle.top = style.top + 'px';
+      otherStyle.left = style.left + 'px';
+      break
+    }
+    default: {
+      break
+    }
   }
 
   const nenv = Object.assign({
@@ -122,7 +131,6 @@ export default function RenderCom({
       // paddingRight: style.marginRight + 'px',
       position: style.position || 'relative',
       ...otherStyle,
-      ...absoluteStyle,
       ...sizeStyle,
       ...marginStyle,
       ...(style.ext || {})
