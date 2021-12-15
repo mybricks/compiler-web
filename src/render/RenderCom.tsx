@@ -8,9 +8,10 @@ export default function RenderCom({
                                     env,
                                     runtimeCfg,
                                     logger,
+                                    createPortal,
                                     slotIo,
                                     rtMaps
-                                  }: { node: {} & I_Node, comDefs, env, runtimeCfg, logger, slotIo: any, rtMaps: {} }) {
+                                  }: { node: {} & I_Node, comDefs, env, runtimeCfg, logger, createPortal:any, slotIo: any, rtMaps: {} }) {
   const {slots: comSlots, runtime, parent} = node
 
   const myKey = `${runtime.def.namespace + '@' + runtime.def.version} (id=${runtime.id})`
@@ -60,7 +61,7 @@ export default function RenderCom({
                 comAry.map(com => {
                     return (
                       <RenderCom slotIo={args[0]} key={com.runtime.id} node={com} comDefs={comDefs} env={env}
-                                 runtimeCfg={runtimeCfg} logger={logger} rtMaps={rtMaps}/>
+                                 runtimeCfg={runtimeCfg} logger={logger} createPortal={createPortal} rtMaps={rtMaps}/>
                     )
                   }
                 )
@@ -144,7 +145,8 @@ export default function RenderCom({
           style,
           inputs: nInputs,
           outputs: nOutputs,
-          logger: logger(node.runtime)
+          logger: logger(node.runtime),
+          createPortal
         })
       }
     </div>)

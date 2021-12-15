@@ -16,8 +16,8 @@ export function RenderReact({
                               env,
                               runtimeCfg,
                               logs,
-                              logger = () => {
-                              }
+                              logger = () => {},
+                              createPortal = () => {}
                             }: {
   mainModule: { frame: I_Frame, slot: {} },
   comDefs: { [nsAndVersion: string]: Function },
@@ -25,7 +25,7 @@ export function RenderReact({
   inputs?: { [id: string]: (fn: Function) => void },
   outputs?: { [id: string]: Function },
   env: {
-    createPortal?: (children) => any,
+    // createPortal?: (children) => any,
     fetch?: (url: string) => Promise<any>
   },
   runtimeCfg: {
@@ -38,7 +38,8 @@ export function RenderReact({
     info: (item: T_LogItem) => void,
     error: (item: T_LogItem) => void
   },
-  logger: () => void
+  logger: () => void,
+  createPortal: (com: any) => void
 }) {
   const jsx = useMemo(() => {
     const nComDefs = Object.assign({}, comDefs)
@@ -91,7 +92,8 @@ export function RenderReact({
                   inputs: io.inputs,
                   outputs: io.outputs,
                   env: Object.assign({runtime: rtCfg}, env || {}),
-                  logger: logger(node.runtime)
+                  logger: logger(node.runtime),
+                  createPortal
                 })
               } else {
                 throw new Error(`未找到组件(${ns})`)
@@ -157,8 +159,8 @@ export function RenderReact({
     slot.comAry.forEach((node: I_Node) => {
       jsx.push(
         <ErrorBoundary key={node.runtime.id}   title={`${node.runtime.title} 组件发生错误`}>
-          <RenderCom node={node} comDefs={nComDefs} env={env} runtimeCfg={runtimeCfg}
-                     logger={logger} rtMaps={RT_MAPS}/>
+          <RenderCom node={node} comDefs={nComDefs} env={env} runtimeCfg={runtimeCfg} createPortal={createPortal}
+                     logger={logger}  rtMaps={RT_MAPS}/>
         </ErrorBoundary>
       )
     })

@@ -1,6 +1,6 @@
 {
   "name": "@mybricks/compiler-web",
-  "version": "0.0.81",
+  "version": "0.0.83",
   "main": "main.js",
   "scripts": {
     "test": "jest",
@@ -14,7 +14,7 @@
   "author": "CheMingjun",
   "license": "",
   "dependencies": {
-    "@mybricks/compiler-js": "0.0.5",
+    "@mybricks/compiler-js": "0.0.12",
     "@mybricks/rxui": "^1.0.22"
   },
   "devDependencies": {
