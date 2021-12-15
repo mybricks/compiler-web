@@ -52,7 +52,7 @@ module.exports = {
   resolve: {
     extensions: ['.tsx', '.ts'],
     alias: {
-      '@mybricks/compiler-js': require('path').resolve(__dirname, '../../compiler-js/index.ts'),
+      '@mybricks/compiler-js': require('path').resolve(__dirname, '../../compiler-js/src/index.ts'),
     }
   },
   output: {
