@@ -27,7 +27,7 @@
         "../rxui"
       ],
       "@mybricks/compiler-js": [
-        "../compiler-js/index"
+        "../compiler-js/src/index"
       ],
       "@mybricks/compiler-web": [
         "./index.ts"
