@@ -1,7 +1,8 @@
 ﻿import {E_ItemType, I_Frame, isTypeof} from "@mybricks/compiler-js";
-import {KEY_STAGEVIEW} from "./constants";
+import {KEY_STAGEVIEW, KEY_REF} from "./constants";
 
-let allRefs, refLoaded, translatedMap
+let allRefs, refLoaded, translatedMap, KREF
+let transProps: (prop) => string
 
 type T_Rtn = {
   requireComs: string[],
@@ -11,18 +12,31 @@ type T_Rtn = {
   }
 }
 
-
 export function parse(oriPageContent: { [KEY_STAGEVIEW] }): T_Rtn {
   //console.time("str")
   const pageContent = JSON.parse(JSON.stringify(oriPageContent))
   //let pageContent = oriPageContent
 
   translatedMap = new WeakMap()
-  refLoaded = {}////TODO curScope 问题
+  refLoaded = {}
 
   const stageView = pageContent[KEY_STAGEVIEW]
 
-  const {def, refs} = stageView
+  const {def, refs, D, consts} = stageView
+
+  if (consts) {//old version
+    KREF = '_ref_'
+    transProps = p => p
+  } else {
+    KREF = KEY_REF
+    transProps = p => {
+      if (D?.W) {
+        return D.W[p]
+      } else {
+        return p
+      }
+    }
+  }
 
   allRefs = refs;
 
@@ -30,7 +44,7 @@ export function parse(oriPageContent: { [KEY_STAGEVIEW] }): T_Rtn {
 
   //const uid = uuid()
 
-  const model = getRef(def['_ref_'])
+  const model = getRef(def[KREF])
   const mainModule = model['mainModule']
   if (mainModule.frame) {
     function parseFrame(frame) {
@@ -87,8 +101,8 @@ function translate(obj) {
   if (typeof obj === 'object' && obj) {
     let rtn
 
-    if (obj['_ref_']) {
-      rtn = getRef(obj['_ref_'])
+    if (obj[KREF]) {
+      rtn = getRef(obj[KREF])
       translatedMap.set(obj, rtn)
     } else {
       translatedMap.set(obj, obj)
@@ -101,7 +115,8 @@ function translate(obj) {
             tv[index] = translate(item)
           })
         } else {
-          obj[nm] = translate(tv)
+          const nprop = transProps(nm)
+          obj[nprop] = translate(tv)
         }
       })
       rtn = obj
