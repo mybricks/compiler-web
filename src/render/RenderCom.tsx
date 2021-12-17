@@ -12,24 +12,26 @@ export default function RenderCom({
                                     slotIo,
                                     rtMaps
                                   }: { node: {} & I_Node, comDefs, env, runtimeCfg, logger, createPortal:any, slotIo: any, rtMaps: {} }) {
-  const {slots: comSlots, runtime, parent} = node
+  const {slots: comSlots, parent, def, id, model, title} = node
 
-  const myKey = `${runtime.def.namespace + '@' + runtime.def.version} (id=${runtime.id})`
+  const myKey = `${def.namespace + '@' + def.version} (id=${id})`
   useStub(() => {
     throw new Error(`${myKey} 渲染次数过多,代码中可能存在循环依赖的情况,请检查.`)
   }, myKey)
 
 
-  const rtType = runtime.def.rtType
+  const rtType = def.rtType
 
   if (rtType && rtType.match(/js/gi)) {//逻辑组件
     return
   }
 
-  const nodeModel = runtime.model
+  const nodeModel = model
 
-  const comRuntime = comDefs[runtime.def.namespace + '@' + runtime.def.version]
-  const rt = rtMaps[runtime.id]
+  const comDefsKey = def.namespace + '@' + def.version
+
+  const comRuntime = comDefs[comDefsKey]
+  const rt = rtMaps[id]
 
   const {inputs, outputs, fork} = rt.io
   let nInputs = inputs, nOutputs = outputs
@@ -49,7 +51,7 @@ export default function RenderCom({
         title: slot.title,
         //comAry:slot.comAry,
         render(...args) {
-          const {frames} = rtMaps[runtime.id]
+          const {frames} = rtMaps[id]
           const fn = frames[slot.id]
           if (typeof fn === 'function') {
             fn()//兼容之前的非框图
@@ -60,7 +62,7 @@ export default function RenderCom({
               {
                 comAry.map(com => {
                     return (
-                      <RenderCom slotIo={args[0]} key={com.runtime.id} node={com} comDefs={comDefs} env={env}
+                      <RenderCom slotIo={args[0]} key={com.id} node={com} comDefs={comDefs} env={env}
                                  runtimeCfg={runtimeCfg} logger={logger} createPortal={createPortal} rtMaps={rtMaps}/>
                     )
                   }
@@ -76,7 +78,7 @@ export default function RenderCom({
     })
   }
 
-  const style = nodeModel.style
+  const style = node.style
 
   // TODO 临时解决设置上下负边距的问题
   const otherStyle: any = {}
@@ -123,7 +125,7 @@ export default function RenderCom({
   const marginStyle = getMarginStyle({style})
 
   return (
-    <div id={node.runtime.id} style={{
+    <div id={id} style={{
       display: style.display,
       overflow: 'hidden',
       // paddingTop: style.marginTop + 'px',
@@ -141,11 +143,11 @@ export default function RenderCom({
           slots: slots,
           env: nenv,
           data: nodeModel.data,
-          title: node.runtime.title,
+          title,
           style,
           inputs: nInputs,
           outputs: nOutputs,
-          logger: logger(node.runtime),
+          logger: logger(node),
           createPortal
         })
       }
@@ -197,7 +199,7 @@ function calSlotStyle(model) {
 function getClasses({node, style}) {
   const classes = [css.com]
 
-  if (node.runtime._focus) {
+  if (node._focus) {
     classes.push(css.debugFocus)
   }
 

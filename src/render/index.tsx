@@ -58,9 +58,9 @@ export function RenderReact({
               }
             })
 
-            RT_MAPS[node.runtime.id] = {scopePath, frameLable, frames, io}
+            RT_MAPS[node.id] = {scopePath, frameLable, frames, io}
 
-            const rtDef = node.runtime.def
+            const rtDef = node.def
             const rtType = rtDef.rtType
 
             if (rtType && rtType.match(/js/gi)) {//逻辑组件
@@ -158,7 +158,7 @@ export function RenderReact({
 
     slot.comAry.forEach((node: I_Node) => {
       jsx.push(
-        <ErrorBoundary key={node.runtime.id}   title={`${node.runtime.title} 组件发生错误`}>
+        <ErrorBoundary key={node.id}   title={`${node.title} 组件发生错误`}>
           <RenderCom node={node} comDefs={nComDefs} env={env} runtimeCfg={runtimeCfg} createPortal={createPortal}
                      logger={logger}  rtMaps={RT_MAPS}/>
         </ErrorBoundary>
