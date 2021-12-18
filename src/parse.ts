@@ -1,5 +1,4 @@
-﻿import {KEY_REF} from "./constants";
-const pinKeys = ['outputPins', 'inputPinExts']
+﻿import {KEY_REF, PIN_KEYS} from "./constants";
 
 export function parse(pageData) {
   const refs = pageData.refs
@@ -7,37 +6,40 @@ export function parse(pageData) {
   const frame = getRef(refs, pageData.frame)
   const requireComs: string[] = []
   
-
   function parseFrame(frame) {
-    const { comAry, model, def } = frame
+    const { comAry, model, def, parent } = frame
 
-    pinKeys.forEach(key => {
+    PIN_KEYS.forEach(key => {
       const pins = frame[key]
 
       pins?.forEach((pin, idx) => {
-        const realPin = getRef(refs, pin)
+        const realPin = getRef(refs, pin) || pin
 
         if (realPin) {
-          if (Array.isArray(realPin)) {
-            realPin.conAry.forEach((con, idx) => {
-              const realCon = getRef(refs, con)
+          realPin.conAry?.forEach((con, idx) => {
+            const realCon = getRef(refs, con)
 
-              if (!realCon) return
+            if (!realCon) return
 
-              const { finishPin, startPin } = realCon
-              const realFinishPin = getRef(refs, finishPin)
-              const realStartPin = getRef(refs, startPin)
+            const { finishPin, startPin } = realCon
+            const realFinishPin = getRef(refs, finishPin)
+            const realStartPin = getRef(refs, startPin)
 
-              if (realFinishPin) {
-                realCon.finishPin = realFinishPin
-              }
+            if (realFinishPin) {
+              realCon.finishPin = realFinishPin
+            }
 
-              if (realStartPin) {
-                realCon.startPin = realStartPin
-              }
+            if (realStartPin) {
+              realCon.startPin = realStartPin
+            }
 
-              realPin.conAry[idx] = realCon
-            })
+            realPin.conAry[idx] = realCon
+          })
+
+          const realParent = getRef(refs, realPin.parent)
+
+          if (realParent) {
+            realPin.parent = realParent
           }
 
           frame[key][idx] = realPin
@@ -49,7 +51,8 @@ export function parse(pageData) {
       const realModel = getRef(refs, model)
 
       if (realModel) {
-        frame.model = parseFrame(realModel)
+        parseFrame(realModel)
+        frame.model = realModel
       }
     }
 
@@ -61,7 +64,21 @@ export function parse(pageData) {
       }
     }
 
-    comAry?.forEach(parseFrame)
+    if (parent) {
+      const realParent = getRef(refs, parent)
+
+      if (realParent) {
+        frame.parent = realParent
+      }
+    }
+
+    comAry?.forEach((com, idx) => {
+      const realCom = getRef(refs, com) || com
+
+      parseFrame(realCom)
+
+      comAry[idx] = realCom
+    })
   }
   
   function parseSlot(slot) {

@@ -88,11 +88,11 @@ export function RenderReact({
               const comRt = nComDefs[ns]
               if (comRt && typeof comRt === 'function') {
                 comRt({
-                  data: clone(node.runtime.model.data),
+                  data: clone(node.model.data),
                   inputs: io.inputs,
                   outputs: io.outputs,
                   env: Object.assign({runtime: rtCfg}, env || {}),
-                  logger: logger(node.runtime),
+                  logger: logger(node),
                   createPortal
                 })
               } else {
@@ -104,16 +104,16 @@ export function RenderReact({
           }
         }
       }, pin(pin: I_Pin) {//处理Pin extension
-        const comRT = pin.parent.runtime ? pin.parent.runtime : void 0
+        const comRT = pin.parent ? pin.parent : void 0
 
         return {
           exe(value: any) {
             if (pin.type.match(/^ext$/gi)) {
               if (pin.direction.match(/^input|inner-output$/gi)) {
                 if (pin.hostId === 'show') {
-                  pin.parent.runtime.model.style.display = 'block'
+                  pin.parent.model.style.display = 'block'
                 } else if (pin.hostId === 'hide') {
-                  pin.parent.runtime.model.style.display = 'none'
+                  pin.parent.model.style.display = 'none'
                 }
               }
             }

@@ -78,7 +78,7 @@ export default function RenderCom({
     })
   }
 
-  const style = node.style
+  const style = nodeModel.style
 
   // TODO 临时解决设置上下负边距的问题
   const otherStyle: any = {}
