@@ -56,7 +56,7 @@ export default function RenderCom({
           if (typeof fn === 'function') {
             fn()//兼容之前的非框图
           }
-          const comAry = slot.comAry
+          const comAry = slot.comAry || []
           return (
             <section className={calSlotStyle(slot)} style={{overflow: 'hidden'}}>
               {
