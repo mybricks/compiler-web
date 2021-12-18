@@ -72,7 +72,7 @@ export default function RenderCom({
           )
         },
         get size() {
-          return slot.comAry.length
+          return slot.comAry?.length || 0
         }
       }
     })
