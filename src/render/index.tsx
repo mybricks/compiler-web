@@ -74,7 +74,7 @@ export function RenderReact({
 
                     outPins.forEach(pin => {
                       outputs[pin.id] = (val, callback) => {
-                        pin._exe(curScope, val, callback)
+                        pin?._exe(curScope, val, callback)
                       }
                     })
                     return {
