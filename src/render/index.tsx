@@ -3,7 +3,7 @@ import React, {useMemo} from "react";
 import {clone, observable} from "@mybricks/rxui";
 import RenderCom from "./RenderCom";
 
-type T_LogItem = { catelog: string, content: string, focus: Function, blur: Function }
+type T_LogItem = { catelog: string, content: string, isBaseType: boolean, focus: Function, blur: Function }
 
 import * as css from './skin.less'
 
@@ -127,8 +127,9 @@ export function RenderReact({
                 if (typeof logs.info === 'function') {
                   setTimeout(v => {
                     logs.info({
-                        catelog: '程序运行',
-                        content: `${comRT.title} | ${pin.title} ${pin.direction == 'input' || pin.direction == 'inner-input' ? '传入' : '传出'} ${strVal}`,
+                        catelog: `程序运行 ${comRT.title} | ${pin.title} ${pin.direction == 'input' || pin.direction == 'inner-input' ? '传入' : '传出'}`,
+                        content: strVal,
+                        isBaseType: !value || typeof value !== 'object',
                         focus() {
                           comRT._focus = true
                         },
