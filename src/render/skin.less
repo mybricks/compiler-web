@@ -60,7 +60,15 @@
 .flex {
   flex: 1;
   min-height: 0;
-
+  // 兼容ios wrap元素塌陷问题
+  position: relative;
+  & > div {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  }
   > * {
     height: 100%;
   }
