@@ -16,25 +16,39 @@ export function parse(pageData) {
         const realPin = getRef(refs, pin) || pin
 
         if (realPin) {
-          realPin.conAry?.forEach((con, idx) => {
-            const realCon = getRef(refs, con)
+          if (Array.isArray(realPin.conAry)) {
+            realPin.conAry.forEach((con, idx) => {
+              const realCon = getRef(refs, con)
+  
+              if (!realCon && !con.id) {
+                delete realPin.conAry[idx]
+              }
+  
+              if (!realCon) return
+  
+              const { finishPin, startPin } = realCon
+              const realFinishPin = getRef(refs, finishPin)
+              const realStartPin = getRef(refs, startPin)
+  
+              if (realFinishPin) {
+                realCon.finishPin = realFinishPin
+              }
+  
+              if (realStartPin) {
+                realCon.startPin = realStartPin
+              }
+  
+              realPin.conAry[idx] = realCon
+            })
 
-            if (!realCon) return
+            const conAry = realPin.conAry.filter(con => con)
 
-            const { finishPin, startPin } = realCon
-            const realFinishPin = getRef(refs, finishPin)
-            const realStartPin = getRef(refs, startPin)
-
-            if (realFinishPin) {
-              realCon.finishPin = realFinishPin
+            if (!conAry?.length) {
+              delete realPin.conAry
+            } else {
+              realPin.conAry = conAry
             }
-
-            if (realStartPin) {
-              realCon.startPin = realStartPin
-            }
-
-            realPin.conAry[idx] = realCon
-          })
+          }
 
           const realParent = getRef(refs, realPin.parent)
 
