@@ -1,6 +1,6 @@
 {
   "name": "@mybricks/compiler-web",
-  "version": "0.0.103",
+  "version": "0.0.104",
   "main": "main.js",
   "scripts": {
     "test": "jest",
@@ -15,7 +15,7 @@
   "license": "",
   "dependencies": {
     "@mybricks/compiler-js": "0.0.15",
-    "@mybricks/rxui": "1.0.55"
+    "@mybricks/rxui": "1.0.58"
   },
   "devDependencies": {
     "@babel/core": "^7.8.7",
