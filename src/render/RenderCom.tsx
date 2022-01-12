@@ -98,7 +98,7 @@ export default function RenderCom({
   switch (true) {
     case ['fixed'].includes(style.position): {
       otherStyle.position = 'fixed'
-      otherStyle.zIndex = style.zIndex;
+      otherStyle.zIndex = 1000;
       style.fixedX === 'right' ? (otherStyle.right = style.right + 'px') : (otherStyle.left = style.left + 'px');
       style.fixedY === 'bottom' ? (otherStyle.bottom = style.bottom + 'px') : (otherStyle.top = style.top + 'px');
       break
@@ -106,7 +106,7 @@ export default function RenderCom({
     // 自身是绝对 || 跟随绝对定位的父组件
     case ['absolute'].includes(style.position) || (parent.style.layout === 'absolute' && style.position === undefined): {
       otherStyle.position = 'absolute'
-      otherStyle.zIndex = style.zIndex;
+      otherStyle.zIndex = 1000;
       otherStyle.top = style.top + 'px';
       otherStyle.left = style.left + 'px';
       break
