@@ -116,6 +116,41 @@ export function RenderReact({
                   pin.parent.model.style.display = 'none'
                 }
               }
+
+              return false
+            }
+
+            if (pin.direction.match(/^output|inner-input$/gi)) {
+              if(comRT){
+                const evts = comRT.runtime.model?.outputEvents
+                if (evts) {
+                  const eAry = evts[pin.id]
+                  if (eAry && Array.isArray(eAry)) {
+                    const activeEvt = eAry.find(e => e.active)
+                    if (activeEvt) {
+                      if (activeEvt.type === 'none') {
+                        return false
+                      }
+                      if (activeEvt.type === 'defined') {
+                        return
+                      }
+
+                      const cfgEvents = []//////TODO
+                      if (Array.isArray(cfgEvents)) {
+                        const def = cfgEvents.find(ce => {
+                          if (ce.type === activeEvt.type) {
+                            return ce
+                          }
+                        })
+                        if (def && typeof def.exe === 'function') {
+                          def.exe({options: activeEvt.options}, value)
+                        }
+                      }
+                      return false
+                    }
+                  }
+                }
+              }
             }
 
             const strVal = typeof value === 'object' && value ?
@@ -145,7 +180,7 @@ export function RenderReact({
           }
         }
       }
-    })
+    } as any)
 
     runner.run()({
       inputParams,
