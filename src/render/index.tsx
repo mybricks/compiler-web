@@ -16,6 +16,7 @@ export function RenderReact({
                               env,
                               runtimeCfg,
                               logs,
+                              events,
                               logger = () => {},
                               createPortal = () => {}
                             }: {
@@ -38,6 +39,7 @@ export function RenderReact({
     info: (item: T_LogItem) => void,
     error: (item: T_LogItem) => void
   },
+  events: any[],
   logger: () => void,
   createPortal: (com: any) => void
 }) {
@@ -135,9 +137,8 @@ export function RenderReact({
                         return
                       }
 
-                      const cfgEvents = []//////TODO
-                      if (Array.isArray(cfgEvents)) {
-                        const def = cfgEvents.find(ce => {
+                      if (Array.isArray(events)) {
+                        const def = events.find(ce => {
                           if (ce.type === activeEvt.type) {
                             return ce
                           }
