@@ -124,7 +124,7 @@ export function RenderReact({
 
             if (pin.direction.match(/^output|inner-input$/gi)) {
               if(comRT){
-                const evts = comRT.runtime.model?.outputEvents
+                const evts = comRT.model?.outputEvents
                 if (evts) {
                   const eAry = evts[pin.id]
                   if (eAry && Array.isArray(eAry)) {
