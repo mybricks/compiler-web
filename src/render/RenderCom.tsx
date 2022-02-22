@@ -1,6 +1,5 @@
 import {I_Node} from "@mybricks/compiler-js";
 import * as css from './skin.less'
-import {useStub} from './ExeMonitor'
 
 export default function RenderCom({
                                     node,
@@ -13,13 +12,6 @@ export default function RenderCom({
                                     rtMaps
                                   }: { node: {} & I_Node, comDefs, env, runtimeCfg, logger, createPortal:any, slotIo: any, rtMaps: {} }) {
   const {slots: comSlots, parent, def, id, model, title} = node
-
-  const myKey = `${def.namespace + '@' + def.version} (id=${id})`
-  useStub(() => {
-    throw new Error(`${myKey} 渲染次数过多,代码中可能存在循环依赖的情况,请检查.`)
-  }, myKey)
-
-
   const rtType = def.rtType
 
   if (rtType && rtType.match(/js/gi)) {//逻辑组件
@@ -58,7 +50,7 @@ export default function RenderCom({
           }
           const comAry = slot.comAry || []
           return (
-            <section className={calSlotStyle(slot)} style={{overflow: 'hidden'}}>
+            <section className={calSlotStyle(slot)}>
               {
                 comAry.map(com => {
                     return (
@@ -127,7 +119,6 @@ export default function RenderCom({
   return (
     <div id={id} style={{
       display: style.display,
-      overflow: 'hidden',
       // paddingTop: style.marginTop + 'px',
       // paddingBottom: style.marginBottom + 'px',
       // paddingLeft: style.marginLeft + 'px',
