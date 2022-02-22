@@ -75,7 +75,7 @@ export function parse(pageData) {
     if (def) {
       const key = def.namespace + '@' + def.version
   
-      if (requireComs.indexOf(key) <= 0) {
+      if (requireComs.indexOf(key) < 0) {
         requireComs.push(key)
       }
     }
