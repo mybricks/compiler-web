@@ -117,18 +117,23 @@ export default function RenderCom({
   const marginStyle = getMarginStyle({style})
 
   return (
-    <div id={id} style={{
-      display: style.display,
-      // paddingTop: style.marginTop + 'px',
-      // paddingBottom: style.marginBottom + 'px',
-      // paddingLeft: style.marginLeft + 'px',
-      // paddingRight: style.marginRight + 'px',
-      position: style.position || 'relative',
-      ...otherStyle,
-      ...sizeStyle,
-      ...marginStyle,
-      ...(style.ext || {})
-    }} className={classes}>
+    <div
+      id={id}
+      data-namespace={comDefsKey}
+      style={{
+        display: style.display,
+        // paddingTop: style.marginTop + 'px',
+        // paddingBottom: style.marginBottom + 'px',
+        // paddingLeft: style.marginLeft + 'px',
+        // paddingRight: style.marginRight + 'px',
+        position: style.position || 'relative',
+        ...otherStyle,
+        ...sizeStyle,
+        ...marginStyle,
+        ...(style.ext || {})
+      }}
+      className={classes}
+    >
       {
         comRuntime({
           slots: slots,
