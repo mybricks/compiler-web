@@ -3,6 +3,11 @@ import React, {useMemo} from "react";
 import {clone, observable} from "@mybricks/rxui";
 import RenderCom from "./RenderCom";
 
+window['@mybricks/compiler-js'] = {
+  compile,
+  createIO
+}
+
 type T_LogItem = { catelog: string, content: string, isBaseType: boolean, focus: Function, blur: Function }
 
 import * as css from './skin.less'
@@ -196,7 +201,7 @@ export function RenderReact({
     slot.comAry.forEach((node: I_Node) => {
       jsx.push(
         <ErrorBoundary key={node.id}   title={`${node.title} 组件发生错误`}>
-          <RenderCom node={node} comDefs={nComDefs} env={env} runtimeCfg={runtimeCfg} createPortal={createPortal}
+          <RenderCom events={events} node={node} comDefs={nComDefs} env={env} runtimeCfg={runtimeCfg} createPortal={createPortal}
                      logger={logger}  rtMaps={RT_MAPS}/>
         </ErrorBoundary>
       )
